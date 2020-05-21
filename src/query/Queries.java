@@ -20,7 +20,9 @@ public class Queries {
 	public MongoCollection<Document> connection(){		
 		MongoClient mongoClient = new MongoClient(new ServerAddress("localhost", 27017));
 		MongoDatabase db = mongoClient.getDatabase("Omicidi");
-		MongoCollection<Document> collection = db.getCollection("Omicidi");    	
+		MongoCollection<Document> collection = db.getCollection("Omicidi");
+		//creazione dell'indice per anno, viene creato nel db;
+		//collection.createIndex(Indexes.ascending("Year"));
 		return collection;
 	}
 
@@ -125,7 +127,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(""+i,count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per anno, nell'anno: "+i+", nel mese: "+ f.getMounth()+", da anni: "+f.getV().getRangePersonAge().get(0)+",a anni: "+f.getV().getRangePersonAge().get(1)+" di sesso: "+f.getV().getPersonSex()+" è: "+count);
+				//System.out.println("Il numero delle vittime per anno, nell'anno: "+i+", nel mese: "+ f.getMounth()+", da anni: "+f.getV().getRangePersonAge().get(0)+",a anni: "+f.getV().getRangePersonAge().get(1)+" di sesso: "+f.getV().getPersonSex()+" Ã¨: "+count);
 			} finally {
 				cursor.close();
 			}
