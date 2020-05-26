@@ -44,35 +44,42 @@ public class ShowGraphic extends HttpServlet {
 		
 		Queries db=new Queries();
 		
-		MongoCollection<Document> collection = db.connection(); 
-		Filtro f= new Filtro();
-		ArrayList<Integer> binary=new ArrayList<Integer>();
-		ArrayList<String> bin=new ArrayList<String>();
-		Person v=new Person();
-		Person a= new Person();
-		f.setA(a);
-		f.setV(v);
+        MongoCollection<Document> collection = db.connection(); 
+        Filtro f= new Filtro();
+        ArrayList<Integer> binary=new ArrayList<Integer>();
+        ArrayList<String> bin=new ArrayList<String>();
+        Person v=new Person();
+        Person a= new Person();
+        f.setA(a);
+        f.setV(v);
 
+ 
 
+        //inserisco filtro inizio anno
+        binary.add(1980);
+        //inserisco filtro fine anno
+        binary.add(2014);
+        f.setRangeYears(binary);
+        //inserisci filtro stato
+        //f.setState("Alaska"); 
+        //inserisci filtro mese
+        //f.setMounth("June"); 
+        //inserisci range iniziale anni vittima
+        bin.add("27");
+        //inserisci range finale anni vittima
+        bin.add("30");
+        f.getV().setRangePersonAge(bin);   
+        f.getA().setRangePersonAge(bin);
+        //inserisci sesso della vittima
+        //f.getV().setPersonSex("Male");
 
-		//inserisco filtro inizio anno
-		binary.add(1980);
-		//inserisco filtro fine anno
-		binary.add(2014);
-		f.setRangeYears(binary);
-		//inserisci filtro stato
-		//f.setState("Alaska"); 
-		//inserisci filtro mese
-		//f.setMounth("June"); 
-		//inserisci range iniziale anni vittima
-		bin.add("22");
-		//inserisci range finale anni vittima
-		bin.add("27");
-		f.getV().setRangePersonAge(bin);   
-		//inserisci sesso della vittima
-		//f.getV().setPersonSex("Female");
+ 
 
-		ArrayList<CoppiaXY> result=	db.findForDate(f, collection);
+        //ArrayList<CoppiaXY> result= db.findForMonth(f, collection);
+        //ArrayList<CoppiaXY> result= db.findForRelationship(f, collection);
+        //ArrayList<CoppiaXY> result= db.findForWeapon(f, collection);
+        //ArrayList<CoppiaXY> result= db.findForVictimRace(f, collection);
+        ArrayList<CoppiaXY> result= db.findForPerpetratorRace(f, collection);
 
 
 
