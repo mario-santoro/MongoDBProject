@@ -39,43 +39,53 @@ public class ShowGraphic extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("we");
-		
-		
-		Queries db=new Queries();
-		
-		MongoCollection<Document> collection = db.connection(); 
+		String ascissa= request.getParameter("ascissa");
+		Queries db=new Queries();		
+		MongoCollection<Document> collection = db.connection(); 		
+	
 		Filtro f= new Filtro();
 		ArrayList<Integer> binary=new ArrayList<Integer>();
 		ArrayList<String> bin=new ArrayList<String>();
 		Person v=new Person();
 		Person a= new Person();
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
+		
 		f.setA(a);
 		f.setV(v);
-
-
-
 		//inserisco filtro inizio anno
-		binary.add(1980);
+		binary.add(1990);
 		//inserisco filtro fine anno
-		binary.add(2014);
+		binary.add(1990);
 		f.setRangeYears(binary);
 		//inserisci filtro stato
-		//f.setState("Alaska"); 
+		f.setState("California"); 
 		//inserisci filtro mese
 		//f.setMounth("June"); 
 		//inserisci range iniziale anni vittima
-		bin.add("22");
+		bin.add("");
 		//inserisci range finale anni vittima
-		bin.add("27");
+		bin.add("");
 		f.getV().setRangePersonAge(bin);   
+		f.getA().setRangePersonAge(bin);   
 		//inserisci sesso della vittima
-		//f.getV().setPersonSex("Female");
-
-		ArrayList<CoppiaXY> result=	db.findForDate(f, collection);
-
-
-
+		//f.getV().setPersonSex("Male");
+		switch (ascissa) {
+		case "Year": 
+				 result=db.findForYear(f, collection);	
+			break;
+		case "Month":	
+				result=	db.findForMonth(f, collection);
+			break;
+		case "State":
+			result=	db.findForState(f, collection);
+			break;
+		case "City":	
+			result=	db.findForCity(f, collection);
+			break;
+		default:
+			break;
+		}
+		
 
 		response.getWriter().append("[");
 
