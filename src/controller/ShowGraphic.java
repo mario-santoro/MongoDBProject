@@ -63,7 +63,7 @@ public class ShowGraphic extends HttpServlet {
         //inserisci filtro stato
         //f.setState("Alaska"); 
         //inserisci filtro mese
-        //f.setMounth("June"); 
+        //f.setMonth("June"); 
         //inserisci range iniziale anni vittima
         bin.add("27");
         //inserisci range finale anni vittima
@@ -78,8 +78,8 @@ public class ShowGraphic extends HttpServlet {
         //ArrayList<CoppiaXY> result= db.findForMonth(f, collection);
         //ArrayList<CoppiaXY> result= db.findForRelationship(f, collection);
         //ArrayList<CoppiaXY> result= db.findForWeapon(f, collection);
-        //ArrayList<CoppiaXY> result= db.findForVictimRace(f, collection);
-        ArrayList<CoppiaXY> result= db.findForPerpetratorRace(f, collection);
+        ArrayList<CoppiaXY> result= db.findForVictimRace(f, collection);
+        //ArrayList<CoppiaXY> result= db.findForPerpetratorRace(f, collection);
 
 
 
