@@ -1,7 +1,10 @@
 package query;
+
 import java.util.ArrayList;
+
 import org.bson.Document;
 import org.bson.conversions.Bson;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
@@ -9,6 +12,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Indexes;
+
 import bean.CoppiaXY;
 import bean.Filtro;
 
@@ -85,25 +89,20 @@ public class Queries {
 		if(f.getA().getPersonSex()!=null && !f.getA().getPersonSex().equals("")) {
 			searchQuery.put("Perpetrator Sex",f.getA().getPersonSex());
 		}
-		if(f.getV().getRangePersonAge()!=null && !f.getV().getRangePersonAge().get(0).equals("")) {
-			if(f.getV().getRangePersonAge().get(0).equals(f.getV().getRangePersonAge().get(1))) {    			
-				searchQuery.put("Victim Age",f.getV().getRangePersonAge().get(0));
-			}else {
-
+		if( !f.getV().getRangePersonAge().get(0).equals("")) {
+		
 				Bson condition = new Document("$gte", f.getV().getRangePersonAge().get(0)).append("$lte",f.getV().getRangePersonAge().get(1));
 
 				searchQuery.put("Victim Age",condition);
-			}
+		
 		}
-		if(f.getA().getRangePersonAge()!=null && !f.getA().getRangePersonAge().get(0).equals("")) {
-			if(f.getA().getRangePersonAge().get(0).equals(f.getA().getRangePersonAge().get(1))) {    			
-				searchQuery.put("Perpetrator Age",f.getA().getRangePersonAge().get(0));
-			}else {
+		if( !f.getA().getRangePersonAge().get(0).equals("")) {
+		
 
-				Bson condition = new Document("$gt", f.getA().getRangePersonAge().get(0)).append("$lt",f.getA().getRangePersonAge().get(1));
+				Bson condition = new Document("$gte", f.getA().getRangePersonAge().get(0)).append("$lte",f.getA().getRangePersonAge().get(1));
 
 				searchQuery.put("Perpetrator Age",condition);
-			}
+		
 		}
 		for(int i=f.getRangeYears().get(0); i<=f.getRangeYears().get(1); i++) {	
 
@@ -155,25 +154,18 @@ public class Queries {
 		if(f.getA().getPersonSex()!=null && !f.getA().getPersonSex().equals("")) {
 			searchQuery.put("Perpetrator Sex",f.getA().getPersonSex());
 		}
-		if(f.getV().getRangePersonAge()!=null && !f.getV().getRangePersonAge().get(0).equals("")) {
-			if(f.getV().getRangePersonAge().get(0).equals(f.getV().getRangePersonAge().get(1))) {    			
-				searchQuery.put("Victim Age",f.getV().getRangePersonAge().get(0));
-			}else {
-
+		if( !f.getV().getRangePersonAge().get(0).equals("")) {
+		
 				Bson condition = new Document("$gte", f.getV().getRangePersonAge().get(0)).append("$lte",f.getV().getRangePersonAge().get(1));
 
 				searchQuery.put("Victim Age",condition);
-			}
+			
 		}
-		if(f.getA().getRangePersonAge()!=null && !f.getA().getRangePersonAge().get(0).equals("")) {
-			if(f.getA().getRangePersonAge().get(0).equals(f.getA().getRangePersonAge().get(1))) {    			
-				searchQuery.put("Perpetrator Age",f.getA().getRangePersonAge().get(0));
-			}else {
+		if( !f.getA().getRangePersonAge().get(0).equals("")) {			
 
-				Bson condition = new Document("$gt", f.getA().getRangePersonAge().get(0)).append("$lt",f.getA().getRangePersonAge().get(1));
-
+				Bson condition = new Document("$gte", f.getA().getRangePersonAge().get(0)).append("$lte",f.getA().getRangePersonAge().get(1));
 				searchQuery.put("Perpetrator Age",condition);
-			}
+			
 		}
 		for(int i=0; i<12; i++) {	
 
@@ -202,12 +194,12 @@ public class Queries {
 		BasicDBObject searchQuery = new BasicDBObject();
 		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
 		ArrayList<String> stati= findProperty(collection,"State");
-		if(f.getRangeYears().get(0).equals(f.getRangeYears().get(1))) {    			
+		if(f.getRangeYears().get(0)== f.getRangeYears().get(1)) {    			
 			searchQuery.put("Year",""+f.getRangeYears().get(0));
 		}else {
 			Bson condition = new Document("$gte", ""+f.getRangeYears().get(0)).append("$lte",""+f.getRangeYears().get(1));
 			searchQuery.put("Year",condition);
-		}				
+		}			
 		if(f.getRelationship()!=null && !f.getRelationship().equals("")) {
 			searchQuery.put("Relationship",f.getRelationship());
 		}
@@ -226,29 +218,16 @@ public class Queries {
 		if(f.getA().getPersonSex()!=null && !f.getA().getPersonSex().equals("")) {
 			searchQuery.put("Perpetrator Sex",f.getA().getPersonSex());
 		}
-		if(f.getV().getRangePersonAge()!=null && !f.getV().getRangePersonAge().get(0).equals("")) {
-			if(f.getV().getRangePersonAge().get(0).equals(f.getV().getRangePersonAge().get(1))) {    			
-				searchQuery.put("Victim Age",f.getV().getRangePersonAge().get(0));
-			}else {
-
+		if(!f.getV().getRangePersonAge().get(0).equals("")) {
 				Bson condition = new Document("$gte", f.getV().getRangePersonAge().get(0)).append("$lte",f.getV().getRangePersonAge().get(1));
-
-				searchQuery.put("Victim Age",condition);
-			}
+				searchQuery.put("Victim Age",condition);			
 		}
-		if(f.getA().getRangePersonAge()!=null && !f.getA().getRangePersonAge().get(0).equals("")) {
-			if(f.getA().getRangePersonAge().get(0).equals(f.getA().getRangePersonAge().get(1))) {    			
-				searchQuery.put("Perpetrator Age",f.getA().getRangePersonAge().get(0));
-			}else {
-
-				Bson condition = new Document("$gt", f.getA().getRangePersonAge().get(0)).append("$lt",f.getA().getRangePersonAge().get(1));
-
+		if(!f.getA().getRangePersonAge().get(0).equals("")) {
+				Bson condition = new Document("$gte", f.getA().getRangePersonAge().get(0)).append("$lte",f.getA().getRangePersonAge().get(1));
 				searchQuery.put("Perpetrator Age",condition);
-			}
 		}
 
 		for(int i=0; i<stati.size(); i++) {	
-
 			searchQuery.put("State",stati.get(i));
 			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
 			int count=0;
@@ -302,25 +281,16 @@ public class Queries {
 		if(f.getA().getPersonSex()!=null && !f.getA().getPersonSex().equals("")) {
 			searchQuery.put("Perpetrator Sex",f.getA().getPersonSex());
 		}
-		if(f.getV().getRangePersonAge()!=null && !f.getV().getRangePersonAge().get(0).equals("")) {
-			if(f.getV().getRangePersonAge().get(0).equals(f.getV().getRangePersonAge().get(1))) {    			
-				searchQuery.put("Victim Age",f.getV().getRangePersonAge().get(0));
-			}else {
-
+		if(!f.getV().getRangePersonAge().get(0).equals("")) {
 				Bson condition = new Document("$gte", f.getV().getRangePersonAge().get(0)).append("$lte",f.getV().getRangePersonAge().get(1));
-
 				searchQuery.put("Victim Age",condition);
-			}
 		}
-		if(f.getA().getRangePersonAge()!=null && !f.getA().getRangePersonAge().get(0).equals("")) {
-			if(f.getA().getRangePersonAge().get(0).equals(f.getA().getRangePersonAge().get(1))) {    			
-				searchQuery.put("Perpetrator Age",f.getA().getRangePersonAge().get(0));
-			}else {
-
-				Bson condition = new Document("$gt", f.getA().getRangePersonAge().get(0)).append("$lt",f.getA().getRangePersonAge().get(1));
+		if( !f.getA().getRangePersonAge().get(0).equals("")) {
+		
+				Bson condition = new Document("$gte", f.getA().getRangePersonAge().get(0)).append("$lte",f.getA().getRangePersonAge().get(1));
 
 				searchQuery.put("Perpetrator Age",condition);
-			}
+			
 		}
 		for(int i=0; i<city.size(); i++) {	
 
