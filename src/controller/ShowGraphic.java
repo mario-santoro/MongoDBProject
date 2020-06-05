@@ -39,36 +39,59 @@ public class ShowGraphic extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		String ascissa= request.getParameter("ascissa");
 		Queries db=new Queries();		
 		MongoCollection<Document> collection = db.connection(); 		
-	
+		
 		Filtro f= new Filtro();
 		ArrayList<Integer> binary=new ArrayList<Integer>();
 		ArrayList<String> bin=new ArrayList<String>();
+		ArrayList<String> binA=new ArrayList<String>();
 		Person v=new Person();
 		Person a= new Person();
 		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
-		
+		String year=request.getParameter("year");
 		f.setA(a);
 		f.setV(v);
 		//inserisco filtro inizio anno
-		binary.add(1990);
-		//inserisco filtro fine anno
-		binary.add(1990);
-		f.setRangeYears(binary);
+		
+		if(!year.contentEquals("")) {	
+			binary.add(Integer.parseInt(year));
+			//inserisco filtro fine anno
+			binary.add(Integer.parseInt(year));
+			f.setRangeYears(binary);
+		}else {
+			ArrayList<String> y= db.findProperty(collection, "Year");
+			binary.add(Integer.parseInt(y.get(0)));
+			binary.add(Integer.parseInt(y.get(y.size()-1)));
+			f.setRangeYears(binary);
+		}
 		//inserisci filtro stato
-		f.setState("California"); 
+		f.setState(request.getParameter("state")); 
 		//inserisci filtro mese
-		//f.setMounth("June"); 
-		//inserisci range iniziale anni vittima
-		bin.add("");
-		//inserisci range finale anni vittima
-		bin.add("");
+		f.setMounth(request.getParameter("month")); 		
+		//inserisci range anni vittima
+		bin.add(request.getParameter("ageVstart"));
+		bin.add(request.getParameter("ageVend"));		
 		f.getV().setRangePersonAge(bin);   
-		f.getA().setRangePersonAge(bin);   
+		//range anni assassino
+		binA.add(request.getParameter("ageAstart"));
+		binA.add(request.getParameter("ageAend"));
+		f.getA().setRangePersonAge(binA);   
 		//inserisci sesso della vittima
-		//f.getV().setPersonSex("Male");
+		f.getV().setPersonSex(request.getParameter("victimSex"));
+		//inserisci sesso dell'assassino
+		f.getA().setPersonSex(request.getParameter("perpetratorSex"));
+		//inserisci razza dell'assassino
+		f.getA().setPersonRazza(request.getParameter("perpetratorRace"));
+		//inserisci razza della vittima
+		f.getV().setPersonRazza(request.getParameter("victimRace"));
+		//inserisci arma
+		f.setWeapon(request.getParameter("weapon"));
+		//inserisci relazione
+		f.setRelationship(request.getParameter("relationship"));
+				
 		switch (ascissa) {
 		case "Year": 
 				 result=db.findForYear(f, collection);	
