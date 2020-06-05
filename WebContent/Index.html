@@ -10,43 +10,43 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="js/jquery.js"></script>
+
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/body.css">
+
 <title>Omicidi US</title>
 </head>
 <body>
 
-
-
 	<div class="container">
 		<div class="row">
-
+		
 			<div class="col-sm-12">
 				<br>
 				<h1>Analisi Omicidi US dal 1980 al 2014</h1>
-
 				<p>Quesa pagina web permette di analizzare e visualizzare gli
 					omicidi avvenuti in America (solo determinati stati) dal 1980 al
-					2014.</p>
+					2014.
+				</p>
 				<blockquote>
-					<p>E' possibile cambiare i parametri di ricerca e filtrare i
-						risultati di ricerca, che verranno mostrati infine graficamente.</p>
-					<footer>UniSA</footer>
+				<p>E' possibile cambiare i parametri di ricerca e filtrare i
+				   risultati di ricerca, che verranno mostrati infine graficamente.
+				</p>
+				<footer>UniSA</footer>
 				</blockquote>
 
-
-
 				<div>
-
-					<select id="ascissa">
+					<select id="ascissa" class="customSelect">
 						<option>Year</option>
 						<option>Month</option>
 						<option>State</option>
 						<option>City</option>
-					</select> <br>
-					<button class="filtri" style="color: blue">+ filtri</button>
-					<div id="sezFiltri"
-						style="background: #57C8FF; width: 40%; height: 50px; color: white">
+					</select>
+					
+					<button class="filtri" onclick="mostra()">add filtri</button>
+					
+					<div id="sezFiltri">
 						<button class="f">Year</button>
 						<button class="f">State</button>
 						<button class="f">Relationship</button>
@@ -54,221 +54,452 @@
 						<button class="f">Victim Race</button>
 						<button class="f">Perpetrator Race</button>
 					</div>
+					
 					<div id="section">
-						<select id="Year" style="display: none">
-						</select>
-						<button id="cancYear" style="display: none" value="Year"
-							onclick="cancella(value)">X</button>
-						<select id="Month">
-							<option>January</option>
-							<option>February</option>
-							<option>March</option>
-							<option>April</option>
-							<option>May</option>
-							<option>June</option>
-							<option>July</option>
-							<option>August</option>
-							<option>September</option>
-							<option>October</option>
-							<option>November</option>
-							<option>December</option>
-						</select> <select id="State">
-						</select> <select id="Weapon">
-						</select> <select id="Relationship">
-						</select> <select id="Victim Race">
-						</select> <select id="Victim Sex">
-							<option>Male</option>
-							<option>Female</option>
-							<option>Unknown</option>
-						</select> <select id="Victim Age">
-							<option>minore di 15</option>
-							<option>dai 15 ai 20</option>
-							<option>dai 21 ai 25</option>
-							<option>dai 26 ai 34</option>
-							<option>dai 35 ai 54</option>
-							<option>dai 55 ai 64</option>
-							<option>dai 65 ai 75</option>
-							<option>dai 76 ai 84</option>
-							<option>maggiore dei 84</option>
-						</select> <select id="Perpetrator Race">
-						</select> <select id="Perpetrator Sex">
-							<option>Male</option>
-							<option>Female</option>
-							<option>Unknown</option>
-						</select> <select id="Perpetrator Age">
-							<option>minore di 15</option>
-							<option>dai 15 ai 20</option>
-							<option>dai 21 ai 25</option>
-							<option>dai 26 ai 34</option>
-							<option>dai 35 ai 54</option>
-							<option>dai 55 ai 64</option>
-							<option>dai 65 ai 75</option>
-							<option>dai 76 ai 84</option>
-							<option>maggiore dei 84</option>
-						</select>
+					
+						<div class="selezione">
+							<label class="labelSelect">Anno</label>
+							
+							<select id="Year" style="display: none" class="customSelect">
+							</select>
+							<button id="cancYear" class="bottoneCanc" style="display: none" value="Year" onclick="cancella(value)">X</button>														
+						</div>
+						
+						<div class="selezione">
+							<label class="labelSelect">Mese</label>
+							
+							<select id="Month" class="customSelect">
+								<option>January</option>
+								<option>February</option>
+								<option>March</option>
+								<option>April</option>
+								<option>May</option>
+								<option>June</option>
+								<option>July</option>
+								<option>August</option>
+								<option>September</option>
+								<option>October</option>
+								<option>November</option>
+								<option>December</option>
+							</select> 
+						</div>
+						
+						<div class="selezione">
+							<label class="labelSelect">Stato</label>
+							
+							<select id="State" style="display: none" class="customSelect">
+							</select> 
+							<button id="cancState"class="bottoneCanc" style="display: none" value="State" onclick="cancella(value)">X</button>
+						</div>
+						
+						<div class="selezione">
+							<label class="labelSelect">Arma</label>
+							
+							<select id="Weapon" style="display: none" class="customSelect">
+							</select> 
+							<button id="cancWeapon" class="bottoneCanc" style="display: none" value="Weapon" onclick="cancella(value)">X</button>
+						</div>
+						
+						<div class="selezione">
+							<label class="labelSelect">Relazione</label>
+							
+							<select id="Relationship" style="display: none" class="customSelect">
+							</select> 
+							<button id="cancRelationship" class="bottoneCanc" style="display: none" value="Relationship" onclick="cancella(value)">X</button>
+						</div>
+						
+						<div class="selezione">
+							<label class="labelSelect">Razza Vittima</label>
+							
+							<select id="Victim Race" style="display: none" class="customSelect">
+							</select> 
+							<button id="cancVictim Race" class="bottoneCanc" style="display: none" value="Victim Race" onclick="cancella(value)">X</button>
+						</div>
+						
+						<div class="selezione">
+							<label class="labelSelect">Sesso Vittima</label>
+							
+							<select id="Victim Sex" class="customSelect">
+								<option>Male</option>
+								<option>Female</option>
+								<option>Unknown</option>
+							</select> 
+						</div>
+						
+						<div class="selezione">
+							<label class="labelSelect">Età Vittima</label>
+							
+							<select id="Victim Age" class="customSelect">
+								<option>minore di 15</option>
+								<option>dai 15 ai 20</option>
+								<option>dai 21 ai 25</option>
+								<option>dai 26 ai 34</option>
+								<option>dai 35 ai 54</option>
+								<option>dai 55 ai 64</option>
+								<option>dai 65 ai 75</option>
+								<option>dai 76 ai 84</option>
+								<option>maggiore dei 84</option>
+							</select> 
+						</div>
+						
+						
+						<div class="selezione">
+							<label class="labelSelect">Razza Assassino</label>
+							
+							<select id="Perpetrator Race" style="display: none" class="customSelect">
+							</select> 
+							<button id="cancPerpetrator Race" class="bottoneCanc" style="display: none" value="Perpetrator Race" onclick="cancella(value)">X</button>
+						</div>
+						
+						<div class="selezione">
+							<label class="labelSelect">Sesso Assasino</label>
+							
+							<select id="Perpetrator Sex" class="customSelect">
+								<option>Male</option>
+								<option>Female</option>
+								<option>Unknown</option>
+							</select> 
+						</div>
+						
+						<div class="selezione">
+							<label class="labelSelect">Età Assassino</label>
+							
+							<select id="Perpetrator Age"  style="display: none" class="customSelect">
+								<option>minore di 15</option>
+								<option>dai 15 ai 20</option>
+								<option>dai 21 ai 25</option>
+								<option>dai 26 ai 34</option>
+								<option>dai 35 ai 54</option>
+								<option>dai 55 ai 64</option>
+								<option>dai 65 ai 75</option>
+								<option>dai 76 ai 84</option>
+								<option>maggiore dei 84</option>
+							</select>
+						</div>
+						
 					</div>
+					
+					
 					<br>
-					<button class="btn btn-info" onclick='graficoApp()'>confronta</button>
-				</div>
-				<br> <br>
-				<div id="chartContainer">
-					<canvas id="myChart"></canvas>
-				</div>
-				<br> <br>
+					<button class="f" onclick='graficoApp()'>confronta</button>
+					
+					</div>
+						<br> <br>
+						<div id="chartContainer">
+							<canvas id="myChart"></canvas>
+					</div>
+				
+				<br> 
+				<br>
+				
 			</div>
 		</div>
 	</div>
 
-
-	<script type="text/javascript">
-		//funzione che elimina un filtro precedentemente selezionato dall'utente
-		function cancella(c) {
-			document.getElementById(c).innerHTML = "";
-			document.getElementById(c).style.display = "none";
-			var v = "canc" + c;
-			document.getElementById(v).style.display = "none";
-		}
-		//funzione che crea la select con i valori del filtro selezionato dall'utente
-		$(".f").click(function() {
-			var fifi = $(this).html();
-			var v = "canc" + fifi;
-			document.getElementById(v).style.display = "inline";
-			document.getElementById(fifi).style.display = "inline";
-			$.get("ShowFilter?filtro=" + fifi, function(data, status) {
-
-				var i = 0;
-				var str = "";
-				var d = JSON.parse(data);
-				for (i = 0; i < d.length; i++) {
-					var x = document.getElementById(fifi);
-					var option = document.createElement("option");
-					option.text = d[i].filtro;
-					x.add(option);
-				}
-			});
-
-		});
-		
-		//funzione che crea il grafico con i valori della query in back-end
-		function graficoApp() {
-
-			var lab = document.getElementById("ascissa").value;
-			//IMPORTANTE PER AGGIORNARE IL GRAFICO, altrimenti quando il mouse passa sopra il grafico si rivede anche il grafico precedente
-			document.getElementById("chartContainer").innerHTML = '&nbsp;';
-			document.getElementById("chartContainer").innerHTML = '<canvas id="myChart"></canvas>';
-			//creazione grafico
-			let myChart = document.getElementById('myChart').getContext('2d');
-			// Global Options
-			Chart.defaults.global.defaultFontFamily = 'Lato';
-			Chart.defaults.global.defaultFontSize = 14;
-			Chart.defaults.global.defaultFontColor = '#777';
-			let massPopChart = new Chart(myChart, {
-				type : 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-				data : {
-					labels : [],
-					datasets : [ {
-						label : 'Omicidi per ' + lab, //dovrà essere dinamica per descrizioni dettagliate
-						data : [
-
-						],
-						//backgroundColor:'green',
-						backgroundColor : [
-
-						],
-						borderWidth : 1,
-						borderColor : '#777',
-						hoverBorderWidth : 3,
-						hoverBorderColor : '#000'
-					}
-					/*,
-					{
-						label : 'Omicdi dal 1980 al 2014',
-						data : [ 1, 3, 5, 12, 4 ],
-					
-						//backgroundColor:'green',
-						backgroundColor : [ 'rgba(54, 162, 235, 0.6)',
-								'rgba(54, 162, 235, 0.6)',
-								'rgba(54, 162, 235, 0.6)',
-								'rgba(54, 162, 235, 0.6)',
-								'rgba(54, 162, 235, 0.6)',
-								'rgba(54, 162, 235, 0.6)' ],
-						borderWidth : 1,
-						borderColor : '#777',
-						hoverBorderWidth : 3,
-						hoverBorderColor : '#000'
-					}
-					 */
-					]
-				},
-				options : {
-					// events: ['click'],
-					scales : {
-						yAxes : [ {
-							ticks : {
-								beginAtZero : true
-							}
-						} ]
-					},
-					title : {
-						display : true,
-						text : 'Omicidi in America',
-						fontSize : 25
-					},
-					legend : {
-						display : true,
-						position : 'right',
-						labels : {
-							fontColor : '#000'
-						}
-					},
-					layout : {
-						padding : {
-							left : 50,
-							right : 0,
-							bottom : 0,
-							top : 0
-						}
-					},
-					tooltips : {
-						enabled : true
-					}
-				}
-			});
-
-			/*	massPopChart.data.datasets[0].data.push(10);
-				massPopChart.data.datasets[0].backgroundColor.push('rgba(54, 162, 235, 0.6)');
-				massPopChart.data.labels.push("prova");
-				massPopChart.update();
-			 */
-
-			$(document).ready(function() {
-				///////////////prende il valore della select, farlo per tutti i filtri, se un filtro non è stato scelto mandare "" al back end
-				var filProva = document.getElementById("State").value; 
-				alert(filProva);
-				////////////////
-				var ascissa = document.getElementById("ascissa").value;
-				$.get("ShowGraphic?ascissa=" + ascissa, function(data, status) {
-					perm(data);
-				});
-			});
-
-			function perm(data) {
-				var i = 0;
-
-				var d = JSON.parse(data);
-				for (i = 0; i < d.length; i++) {
-					massPopChart.data.datasets[0].data.push(d[i].y);
-					massPopChart.data.datasets[0].backgroundColor
-							.push('rgba(255, 206, 86, 0.6)');
-					massPopChart.data.labels.push(d[i].x);
-				}
-
-				// massPopChart.data.datasets[0].data.push(0);
-				massPopChart.update();
-
-			}
-
-		}
-	</script>
 </body>
+<script>
+	
+	function mostra(){
+		
+		if ( document.getElementById("sezFiltri").style.display == "none")
+	    {
+			document.getElementById("sezFiltri").style.display = "block";
+	    }else{
+			document.getElementById("sezFiltri").style.display = "none";
+	    }
+	}
+	
+	//funzione che elimina un filtro precedentemente selezionato dall'utente
+	function cancella(c) {
+		//document.getElementById(c).innerHTML = "";
+		document.getElementById(c).style.display = "none";
+		var v = "canc" + c;
+		document.getElementById(v).style.display = "none";
+	}
+	//funzione che crea la select con i valori del filtro selezionato dall'utente
+	$(".f").click(function() {
+		var fifi = $(this).html();
+		var v = "canc" + fifi;
+		document.getElementById(v).style.display = "inline";
+		document.getElementById(fifi).style.display = "inline";
+		$.get("ShowFilter?filtro=" + fifi, function(data, status) {
+	
+			var i = 0;
+			var str = "";
+			var d = JSON.parse(data);
+			for (i = 0; i < d.length; i++) {
+				var x = document.getElementById(fifi);
+				var option = document.createElement("option");
+				option.text = d[i].filtro;
+				x.add(option);
+			}
+		});
+	
+	});
+	
+	//funzione che crea il grafico con i valori della query in back-end
+	function graficoApp() {
+	
+		var lab = document.getElementById("ascissa").value;
+		//IMPORTANTE PER AGGIORNARE IL GRAFICO, altrimenti quando il mouse passa sopra il grafico si rivede anche il grafico precedente
+		document.getElementById("chartContainer").innerHTML = '&nbsp;';
+		document.getElementById("chartContainer").innerHTML = '<canvas id="myChart"></canvas>';
+		//creazione grafico
+		let myChart = document.getElementById('myChart').getContext('2d');
+		// Global Options
+		Chart.defaults.global.defaultFontFamily = 'Lato';
+		Chart.defaults.global.defaultFontSize = 14;
+		Chart.defaults.global.defaultFontColor = '#777';
+		let massPopChart = new Chart(myChart, {
+			type : 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+			data : {
+				labels : [],
+				datasets : [ {
+					label : 'Omicidi per ' + lab, //dovrà essere dinamica per descrizioni dettagliate
+					data : [
+	
+					],
+					//backgroundColor:'green',
+					backgroundColor : [
+	
+					],
+					borderWidth : 1,
+					borderColor : '#777',
+					hoverBorderWidth : 3,
+					hoverBorderColor : '#000'
+				}
+				/*,
+				{
+					label : 'Omicdi dal 1980 al 2014',
+					data : [ 1, 3, 5, 12, 4 ],
+				
+					//backgroundColor:'green',
+					backgroundColor : [ 'rgba(54, 162, 235, 0.6)',
+							'rgba(54, 162, 235, 0.6)',
+							'rgba(54, 162, 235, 0.6)',
+							'rgba(54, 162, 235, 0.6)',
+							'rgba(54, 162, 235, 0.6)',
+							'rgba(54, 162, 235, 0.6)' ],
+					borderWidth : 1,
+					borderColor : '#777',
+					hoverBorderWidth : 3,
+					hoverBorderColor : '#000'
+				}
+				 */
+				]
+			},
+			options : {
+				// events: ['click'],
+				scales : {
+					yAxes : [ {
+						ticks : {
+							beginAtZero : true
+						}
+					} ]
+				},
+				title : {
+					display : true,
+					text : 'Omicidi in America',
+					fontSize : 25
+				},
+				legend : {
+					display : true,
+					position : 'right',
+					labels : {
+						fontColor : '#000'
+					}
+				},
+				layout : {
+					padding : {
+						left : 50,
+						right : 0,
+						bottom : 0,
+						top : 0
+					}
+				},
+				tooltips : {
+					enabled : true
+				}
+			}
+		});
+	
+		/*	massPopChart.data.datasets[0].data.push(10);
+			massPopChart.data.datasets[0].backgroundColor.push('rgba(54, 162, 235, 0.6)');
+			massPopChart.data.labels.push("prova");
+			massPopChart.update();
+		 */
+	
+		$(document).ready(function() {
+			///////////////prende il valore della select, farlo per tutti i filtri, se un filtro non è stato scelto mandare "" al back end
+			var state;
+			if ( document.getElementById("State").style.display == "none"){
+				state="";
+			}else{				
+				 state = document.getElementById("State").value; 
+			}			
+			var weapon;
+			if ( document.getElementById("Weapon").style.display == "none"){
+				weapon="";
+			}else{		
+				weapon= document.getElementById("Weapon").value; 	
+			}
+			var rel;
+			if ( document.getElementById("Relationship").style.display == "none"){
+				rel="";
+			}else{		
+				rel = document.getElementById("Relationship").value;
+			}			
+			var month;
+			if ( document.getElementById("Month").style.display == "none"){
+				month="";
+			}else{	
+				month= document.getElementById("Month").value;
+			}
+			var year;
+			if (document.getElementById("Year").style.display == "none"){
+				year="";
+			}else{	
+				year = document.getElementById("Year").value; //solo inizio per ora
+			}
+			var razzaV;
+			if ( document.getElementById("Victim Race").style.display == "none"){
+				razzaV="";
+			}else{	
+				razzaV= document.getElementById("Victim Race").value; 
+			}
+			var razzaA;
+			if ( document.getElementById("Perpetrator Race").style.display == "none"){
+				razzaA="";
+			}else{	
+				razzaA= document.getElementById("Perpetrator Race").value;
+			}
+			var sessoV;
+			if ( document.getElementById("Victim Sex").style.display == "none"){
+				sessoV="";
+			}else{	
+				sessoV= document.getElementById("Victim Sex").value; 
+			}
+			var sessoA;
+			if ( document.getElementById("Perpetrator Sex").style.display == "none"){
+				sessoA="";
+			}else{	
+				sessoA= document.getElementById("Perpetrator Sex").value; 
+			}
+			//funzione di calcolo età dalla select	
+			var AgeVStart, AgeVEnd;
+			if ( document.getElementById("Victim Age").style.display == "none"){
+				AgeVStart="";
+				AgeVEnd="";
+			}else{	
+				switch(document.getElementById("Victim Age").selectedIndex){
+				case 0: 	
+					AgeVStart="0";
+					AgeVEnd="14";
+					break;
+				case 1: 	
+					AgeVStart="15";
+					AgeVEnd="20";
+					break;
+				case 2: 	
+					AgeVStart="21";
+					AgeVEnd="25";
+					break;
+				case 3: 	
+					AgeVStart="26";
+					AgeVEnd="34";
+					break;
+				case 4: 	
+					AgeVStart="35";
+					AgeVEnd="54";
+					break;
+				case 5: 	
+					AgeVStart="55";
+					AgeVEnd="64";
+					break;
+				case 6: 	
+					AgeVStart="65";
+					AgeVEnd="75";
+					break;
+				case 7: 	
+					AgeVStart="76";
+					AgeVEnd="84";
+					break;
+				case 8: 	
+					AgeVStart="85";
+					AgeVEnd="100";
+					break;
+				}
+				
+			}			
+			var AgeAStart, AgeAEnd;
+			if ( document.getElementById("Perpetrator Age").style.display == "none"){
+				AgeAStart="";
+				AgeAEnd="";
+			}else{	
+				switch(document.getElementById("Perpetrator Age").selectedIndex){
+				case 0: 	
+					AgeAStart="0";
+					AgeAEnd="14";
+					break;
+				case 1: 	
+					AgeAStart="15";
+					AgeAEnd="20";
+					break;
+				case 2: 	
+					AgeAStart="21";
+					AgeAEnd="25";
+					break;
+				case 3: 	
+					AgeAStart="26";
+					AgeAEnd="34";
+					break;
+				case 4: 	
+					AgeAStart="35";
+					AgeAEnd="54";
+					break;
+				case 5: 	
+					AgeAStart="55";
+					AgeAEnd="64";
+					break;
+				case 6: 	
+					AgeAStart="65";
+					AgeAEnd="75";
+					break;
+				case 7: 	
+					AgeAStart="76";
+					AgeAEnd="84";
+					break;
+				case 8: 	
+					AgeAStart="85";
+					AgeAEnd="100";
+					break;
+				}
+				
+			}		
+		
+			var ascissa = document.getElementById("ascissa").value;
+			$.get("ShowGraphic?ascissa=" + ascissa+"&year="+year+"&state="+state+"&month="+month+"&relationship="+rel+"&weapon="+weapon+"&victimSex="+sessoV+"&perpetratorSex="+sessoA+"&victimRace="+razzaV+"&perpetratorRace="+razzaA+"&ageVstart="+AgeVStart+"&ageVend="+AgeVEnd+"&ageAstart="+AgeAStart+"&ageAend="+AgeAEnd, function(data, status) {
+				perm(data);
+			});
+		});
+	
+		function perm(data) {
+			var i = 0;
+	
+			var d = JSON.parse(data);
+			for (i = 0; i < d.length; i++) {
+				massPopChart.data.datasets[0].data.push(d[i].y);
+				massPopChart.data.datasets[0].backgroundColor
+						.push('rgba(255, 206, 86, 0.6)');
+				massPopChart.data.labels.push(d[i].x);
+			}
+	
+			// massPopChart.data.datasets[0].data.push(0);
+			massPopChart.update();
+	
+		}
+	
+	}
+
+</script>
 </html>
