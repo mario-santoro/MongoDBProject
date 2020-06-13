@@ -14,6 +14,32 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <title>Omicidi US</title>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	$('[class^=is]').hide();
+
+	$("#theSelect").change(function(){          
+	    var value = $("#theSelect option:selected").val();
+	    var theDiv = $(".is" + value);
+
+	    theDiv.slideDown();
+	    theDiv.siblings('[class^=is]').slideUp();
+	});
+
+});
+
+</script>
+
+<style type="text/css">
+.hidden {
+    display: none;
+}
+</style>
+
+
 </head>
 <body>
 
@@ -38,8 +64,14 @@
 
 
 				<div>
-					<select>
-						<option>Anno</option>
+				
+				
+				
+					<select id="theSelect">
+						<option value="Anno">Anno</option>
+						<option value="Sesso">Sesso</option>
+						
+						
 
 					</select> <br> <br>
 					<div id="categoria"></div>
@@ -49,19 +81,25 @@
 
 				</div>
 				<br> <br>
-				<canvas id="myChart"></canvas>
+				<div class="isAnno"><canvas id="myChart"></canvas></div>
 
 				<div id="tabella"></div>
 				<br> <br>
 				
+				<div class="isSesso"> <canvas id="myPie"></canvas></div>
+				
+				
+<div class="isNone" >
+   <canvas id="canvas" width="600" height="400"></canvas>
+</div>				
+				
 				</div>
 				<br> <br>
-				<canvas id="myPie"></canvas>
+				
 
 			</div>
 
 		</div>
-	</div>
 
 	<script type="text/javascript">
 	
@@ -207,6 +245,7 @@
 						          }
 						        }
 						});
+	
 								
 
 			/*	massPopChart.data.datasets[0].data.push(10);
@@ -215,9 +254,91 @@
 				massPopChart.update();
 			 */
 			 
+			 var canvas = document.getElementById('canvas');
+			 var ctx = canvas.getContext('2d');
 			 
+			 console.log(canvas);
+			 console.log(ctx);
+
+
+			 var myChart3 = new Chart(ctx, {
+					type : 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+					data : {
+						labels : [],
+						datasets : [ {
+							label : 'Omicidi',
+							data : [
+
+							],
+
+							//backgroundColor:'green',
+							backgroundColor : [
+
+							],
+							borderWidth : 1,
+							borderColor : '#777',
+							hoverBorderWidth : 3,
+							hoverBorderColor : '#000'
+						}
+						,
+						{
+							label : 'Omicdi dal 1980 al 2014',
+							data : [ 1, 3, 5, 12, 4 ],
+
+							//backgroundColor:'green',
+							backgroundColor : [ 'rgba(54, 162, 235, 0.6)',
+									'rgba(54, 162, 235, 0.6)',
+									'rgba(54, 162, 235, 0.6)',
+									'rgba(54, 162, 235, 0.6)',
+									'rgba(54, 162, 235, 0.6)',
+									'rgba(54, 162, 235, 0.6)' ],
+							borderWidth : 1,
+							borderColor : '#777',
+							hoverBorderWidth : 3,
+							hoverBorderColor : '#000'
+						}
+						 
+						]
+					},
+					options : {
+						// events: ['click'],
+						 scales: {
+	         				  yAxes:[{
+	         					  ticks: {
+	         		                   beginAtZero: true}
+	         		               }]
+	           					
+						},
+						title : {
+							display : true,
+							text : 'Omicidi in America',
+							fontSize : 25
+						},
+						legend : {
+							display : true,
+							position : 'right',
+							labels : {
+								fontColor : '#000'
+							}
+						},
+						layout : {
+							padding : {
+								left : 50,
+								right : 0,
+								bottom : 0,
+								top : 0
+							}
+						},
+						tooltips : {
+							enabled : true
+						}
+					}
+
+				});
 			 
+				
 		
+			 
 
 		$(document).ready(function() {
 		
@@ -236,6 +357,8 @@
 					
 					let currColor=getRandomColor()
 					
+					
+					
 					massPopChart.data.datasets[0].data.push(d[i].y);
 					massPopChart.data.datasets[0].backgroundColor.push(currColor);
 					massPopChart.data.labels.push(d[i].x);
@@ -244,12 +367,21 @@
 					pieChart.data.datasets[0].backgroundColor.push(currColor);
 					pieChart.data.labels.push(d[i].x);
 
+					myChart3.data.datasets[0].data.push(d[i].y);
+					myChart3.data.datasets[0].backgroundColor.push(currColor);
+					myChart3.data.labels.push(d[i].x);
+					
+					myChart3.data.datasets[1].data.push(d[i].y);
+					myChart3.data.datasets[1].backgroundColor.push(currColor);
+					myChart3.data.labels.push(d[i].x);
 
+					
 				}
 
 				// massPopChart.data.datasets[0].data.push(0);
 				 massPopChart.update();
 				 pieChart.update();
+				 myChart3.update();
 			
 			document.getElementById("tabella").innerHTML = str;
 		}
