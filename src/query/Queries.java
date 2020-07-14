@@ -43,7 +43,7 @@ public class Queries {
 
 	}
 
-	//metodo che restituisce tutte le citt‡ di uno stato
+	//metodo che restituisce tutte le citt√† di uno stato
 	public ArrayList<String> findCityOfState(MongoCollection<Document> collection, String stato){
 		BasicDBObject searchQuery = new BasicDBObject();
 		searchQuery.put("State",stato);
@@ -61,19 +61,19 @@ public class Queries {
 		return result;
 
 	}
-	
-	
+
+
 	//ascissa eta vittima
 	public ArrayList<CoppiaXY> findForVictimAge(Filtro f, MongoCollection<Document> collection ){
 		BasicDBObject searchQuery = controlli(f);
 		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();	
-		
+
 		int[][] eta= {{0,14},{15,20},{21,25},{26,34},{35,54},{55,64},{65,75},{76,84},{85,100}};
-				
+
 		for(int i = 0;i<9;i++) {
 			Bson condition = new Document("$gte", eta[i][0]).append("$lte",eta[i][1]);
 			searchQuery.put("Victim Age",condition);
-			
+
 			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
 			int count=0;
 			try {
@@ -92,18 +92,18 @@ public class Queries {
 		return result;
 	}
 
-	
+
 	//ascissa eta vittima
 	public ArrayList<CoppiaXY> findForPerpetratorAge(Filtro f, MongoCollection<Document> collection ){
 		BasicDBObject searchQuery = controlli(f);
 		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();	
-		
+
 		int[][] eta= {{0,14},{15,20},{21,25},{26,34},{35,54},{55,64},{65,75},{76,84},{85,100}};
-				
+
 		for(int i = 0;i<9;i++) {
 			Bson condition = new Document("$gte", eta[i][0]).append("$lte",eta[i][1]);
 			searchQuery.put("Perpetrator Age",condition);
-			
+
 			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
 			int count=0;
 			try {
@@ -121,7 +121,7 @@ public class Queries {
 
 		return result;
 	}
-	
+
 	//ascissa sesso vittime
 	public ArrayList<CoppiaXY> findForVictimSex(Filtro f, MongoCollection<Document> collection ){
 		String sex[]= {"Male","Female","Unknown"};
@@ -147,7 +147,7 @@ public class Queries {
 
 		return result;
 	}
-	
+
 	//ascissa sesso assassino
 	public ArrayList<CoppiaXY> findForPerpetratorSex(Filtro f, MongoCollection<Document> collection ){
 		String sex[]= {"Male","Female","Unknown"};
@@ -193,7 +193,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(""+i,count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per anno, nell'anno: "+i+", nel mese: "+ f.getMounth()+", da anni: "+f.getV().getRangePersonAge().get(0)+",a anni: "+f.getV().getRangePersonAge().get(1)+" di sesso: "+f.getV().getPersonSex()+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per anno, nell'anno: "+i+", nel mese: "+ f.getMounth()+", da anni: "+f.getV().getRangePersonAge().get(0)+",a anni: "+f.getV().getRangePersonAge().get(1)+" di sesso: "+f.getV().getPersonSex()+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
@@ -221,7 +221,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(month[i],count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per mese, nell'anno: "+f.getRangeYears().get(0)+", nel mese: "+ month[i]+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per mese, nell'anno: "+f.getRangeYears().get(0)+", nel mese: "+ month[i]+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
@@ -250,7 +250,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(stati.get(i),count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
@@ -259,7 +259,7 @@ public class Queries {
 		return result;
 	}
 
-	//query con ascissa Citt‡ di uno stato
+	//query con ascissa Citt√† di uno stato
 	public ArrayList<CoppiaXY> findForCity(Filtro f, MongoCollection<Document> collection){ 
 		BasicDBObject searchQuery = controlli(f);
 		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
@@ -278,7 +278,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(city.get(i),count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nella citt‡: "+ city.get(i)+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nella citt√†: "+ city.get(i)+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
@@ -286,6 +286,325 @@ public class Queries {
 
 		return result;
 	}
+
+	//ascissa razza vittima
+	public ArrayList<CoppiaXY> findForVictimRace(Filtro f, MongoCollection<Document> collection){ 
+		BasicDBObject searchQuery = new BasicDBObject();
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
+
+		ArrayList<String> razzeVittime= findProperty(collection,"Victim Race");
+
+		for (String string : razzeVittime) {
+
+			System.out.println("Razza"+string);
+		}
+
+		if(f.getRangeYears().get(0).equals(f.getRangeYears().get(1))) {    			
+			searchQuery.put("Year",""+f.getRangeYears().get(0));
+		}else {
+			Bson condition = new Document("$gte", ""+f.getRangeYears().get(0)).append("$lte",""+f.getRangeYears().get(1));
+			searchQuery.put("Year",condition);
+		}				
+		if(f.getRelationship()!=null && !f.getRelationship().equals("")) {
+			searchQuery.put("Relationship",f.getRelationship());
+		}
+		if(f.getWeapon()!=null && !f.getWeapon().equals("")) {
+			searchQuery.put("Weapon",f.getWeapon());
+		}
+		if(f.getV().getPersonRazza()!=null && !f.getV().getPersonRazza().equals("")) {
+			searchQuery.put("Victim Race",f.getV().getPersonRazza());
+		}
+		if(f.getV().getPersonSex()!=null && !f.getV().getPersonSex().equals("")) {
+			searchQuery.put("Victim Sex",f.getV().getPersonSex());
+		}
+		if(f.getA().getPersonRazza()!=null && !f.getA().getPersonRazza().equals("")) {
+			searchQuery.put("Perpetrator Race",f.getA().getPersonRazza());
+		}
+		if(f.getA().getPersonSex()!=null && !f.getA().getPersonSex().equals("")) {
+			searchQuery.put("Perpetrator Sex",f.getA().getPersonSex());
+		}
+		if(f.getV().getRangePersonAge()!=null && !f.getV().getRangePersonAge().get(0).equals("")) {
+			if(f.getV().getRangePersonAge().get(0).equals(f.getV().getRangePersonAge().get(1))) {    			
+				searchQuery.put("Victim Age",f.getV().getRangePersonAge().get(0));
+			}else {
+
+				Bson condition = new Document("$gte", f.getV().getRangePersonAge().get(0)).append("$lte",f.getV().getRangePersonAge().get(1));
+
+				searchQuery.put("Victim Age",condition);
+			}
+		}
+		if(f.getA().getRangePersonAge()!=null && !f.getA().getRangePersonAge().get(0).equals("")) {
+			if(f.getA().getRangePersonAge().get(0).equals(f.getA().getRangePersonAge().get(1))) {    			
+				searchQuery.put("Perpetrator Age",f.getA().getRangePersonAge().get(0));
+			}else {
+
+				Bson condition = new Document("$gt", f.getA().getRangePersonAge().get(0)).append("$lt",f.getA().getRangePersonAge().get(1));
+
+				searchQuery.put("Perpetrator Age",condition);
+			}
+		}
+
+		for(int i=0; i<razzeVittime.size(); i++) {	
+
+			searchQuery.put("Victim Race",razzeVittime.get(i));
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					count++;
+					cursor.next();
+					//System.out.println(cursor.next().toJson());
+
+				}
+				CoppiaXY c= new CoppiaXY(razzeVittime.get(i),count);
+				result.add(c);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" √®: "+count);
+			} finally {
+				cursor.close();
+			}
+		}
+
+		return result;
+	}
+
+
+
+	//Query con ascissa relazione vttima
+	public ArrayList<CoppiaXY> findForRelationship(Filtro f, MongoCollection<Document> collection){ 
+		BasicDBObject searchQuery = new BasicDBObject();
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
+		ArrayList<String> relationship= findProperty(collection,"Relationship");
+
+		for (String string : relationship) {
+			System.out.println(string);
+		}
+
+		if(f.getRangeYears().get(0).equals(f.getRangeYears().get(1))) {    			
+			searchQuery.put("Year",""+f.getRangeYears().get(0));
+		}else {
+			Bson condition = new Document("$gte", ""+f.getRangeYears().get(0)).append("$lte",""+f.getRangeYears().get(1));
+			searchQuery.put("Year",condition);
+		}				
+		if(f.getRelationship()!=null && !f.getRelationship().equals("")) {
+			searchQuery.put("Relationship",f.getRelationship());
+		}
+		if(f.getWeapon()!=null && !f.getWeapon().equals("")) {
+			searchQuery.put("Weapon",f.getWeapon());
+		}
+		if(f.getV().getPersonRazza()!=null && !f.getV().getPersonRazza().equals("")) {
+			searchQuery.put("Victim Race",f.getV().getPersonRazza());
+		}
+		if(f.getV().getPersonSex()!=null && !f.getV().getPersonSex().equals("")) {
+			searchQuery.put("Victim Sex",f.getV().getPersonSex());
+		}
+		if(f.getA().getPersonRazza()!=null && !f.getA().getPersonRazza().equals("")) {
+			searchQuery.put("Perpetrator Race",f.getA().getPersonRazza());
+		}
+		if(f.getA().getPersonSex()!=null && !f.getA().getPersonSex().equals("")) {
+			searchQuery.put("Perpetrator Sex",f.getA().getPersonSex());
+		}
+		if(f.getV().getRangePersonAge()!=null && !f.getV().getRangePersonAge().get(0).equals("")) {
+			if(f.getV().getRangePersonAge().get(0).equals(f.getV().getRangePersonAge().get(1))) {    			
+				searchQuery.put("Victim Age",f.getV().getRangePersonAge().get(0));
+			}else {
+
+				Bson condition = new Document("$gte", f.getV().getRangePersonAge().get(0)).append("$lte",f.getV().getRangePersonAge().get(1));
+
+				searchQuery.put("Victim Age",condition);
+			}
+		}
+		if(f.getA().getRangePersonAge()!=null && !f.getA().getRangePersonAge().get(0).equals("")) {
+			if(f.getA().getRangePersonAge().get(0).equals(f.getA().getRangePersonAge().get(1))) {    			
+				searchQuery.put("Perpetrator Age",f.getA().getRangePersonAge().get(0));
+			}else {
+
+				Bson condition = new Document("$gt", f.getA().getRangePersonAge().get(0)).append("$lt",f.getA().getRangePersonAge().get(1));
+
+				searchQuery.put("Perpetrator Age",condition);
+			}
+		}
+
+		for(int i=0; i<relationship.size(); i++) {	
+
+			searchQuery.put("Relationship",relationship.get(i));
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					count++;
+					cursor.next();
+					//System.out.println(cursor.next().toJson());
+
+				}
+				CoppiaXY c= new CoppiaXY(relationship.get(i),count);
+				result.add(c);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" √®: "+count);
+			} finally {
+				cursor.close();
+			}
+		}
+
+		return result;
+	}
+
+	//Query con ascissa armi
+	public ArrayList<CoppiaXY> findForWeapon(Filtro f, MongoCollection<Document> collection){ 
+		BasicDBObject searchQuery = new BasicDBObject();
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
+		ArrayList<String> weapons= findProperty(collection,"Weapon");
+
+		for (String string : weapons) {
+			System.out.println(string);
+		}
+
+		if(f.getRangeYears().get(0).equals(f.getRangeYears().get(1))) {    			
+			searchQuery.put("Year",""+f.getRangeYears().get(0));
+		}else {
+			Bson condition = new Document("$gte", ""+f.getRangeYears().get(0)).append("$lte",""+f.getRangeYears().get(1));
+			searchQuery.put("Year",condition);
+		}				
+		if(f.getRelationship()!=null && !f.getRelationship().equals("")) {
+			searchQuery.put("Relationship",f.getRelationship());
+		}
+		if(f.getWeapon()!=null && !f.getWeapon().equals("")) {
+			searchQuery.put("Weapon",f.getWeapon());
+		}
+		if(f.getV().getPersonRazza()!=null && !f.getV().getPersonRazza().equals("")) {
+			searchQuery.put("Victim Race",f.getV().getPersonRazza());
+		}
+		if(f.getV().getPersonSex()!=null && !f.getV().getPersonSex().equals("")) {
+			searchQuery.put("Victim Sex",f.getV().getPersonSex());
+		}
+		if(f.getA().getPersonRazza()!=null && !f.getA().getPersonRazza().equals("")) {
+			searchQuery.put("Perpetrator Race",f.getA().getPersonRazza());
+		}
+		if(f.getA().getPersonSex()!=null && !f.getA().getPersonSex().equals("")) {
+			searchQuery.put("Perpetrator Sex",f.getA().getPersonSex());
+		}
+		if(f.getV().getRangePersonAge()!=null && !f.getV().getRangePersonAge().get(0).equals("")) {
+			if(f.getV().getRangePersonAge().get(0).equals(f.getV().getRangePersonAge().get(1))) {    			
+				searchQuery.put("Victim Age",f.getV().getRangePersonAge().get(0));
+			}else {
+
+				Bson condition = new Document("$gte", f.getV().getRangePersonAge().get(0)).append("$lte",f.getV().getRangePersonAge().get(1));
+
+				searchQuery.put("Victim Age",condition);
+			}
+		}
+		if(f.getA().getRangePersonAge()!=null && !f.getA().getRangePersonAge().get(0).equals("")) {
+			if(f.getA().getRangePersonAge().get(0).equals(f.getA().getRangePersonAge().get(1))) {    			
+				searchQuery.put("Perpetrator Age",f.getA().getRangePersonAge().get(0));
+			}else {
+
+				Bson condition = new Document("$gt", f.getA().getRangePersonAge().get(0)).append("$lt",f.getA().getRangePersonAge().get(1));
+
+				searchQuery.put("Perpetrator Age",condition);
+			}
+		}
+
+		for(int i=0; i<weapons.size(); i++) {	
+
+			searchQuery.put("Weapon",weapons.get(i));
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					count++;
+					cursor.next();
+					//System.out.println(cursor.next().toJson());
+
+				}
+				CoppiaXY c= new CoppiaXY(weapons.get(i),count);
+				result.add(c);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" √®: "+count);
+			} finally {
+				cursor.close();
+			}
+		}
+
+		return result;
+	}
+
+	//ascissa razza assassino
+	public ArrayList<CoppiaXY> findForPerpetratorRace(Filtro f, MongoCollection<Document> collection){ 
+		BasicDBObject searchQuery = new BasicDBObject();
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
+
+		ArrayList<String> razzeAssassini= findProperty(collection,"Perpetrator Race");
+
+		for (String string : razzeAssassini) {
+
+			System.out.println("Razza"+string);
+		}
+
+		if(f.getRangeYears().get(0).equals(f.getRangeYears().get(1))) {    			
+			searchQuery.put("Year",""+f.getRangeYears().get(0));
+		}else {
+			Bson condition = new Document("$gte", ""+f.getRangeYears().get(0)).append("$lte",""+f.getRangeYears().get(1));
+			searchQuery.put("Year",condition);
+		}				
+		if(f.getRelationship()!=null && !f.getRelationship().equals("")) {
+			searchQuery.put("Relationship",f.getRelationship());
+		}
+		if(f.getWeapon()!=null && !f.getWeapon().equals("")) {
+			searchQuery.put("Weapon",f.getWeapon());
+		}
+		if(f.getV().getPersonRazza()!=null && !f.getV().getPersonRazza().equals("")) {
+			searchQuery.put("Victim Race",f.getV().getPersonRazza());
+		}
+		if(f.getV().getPersonSex()!=null && !f.getV().getPersonSex().equals("")) {
+			searchQuery.put("Victim Sex",f.getV().getPersonSex());
+		}
+		if(f.getA().getPersonRazza()!=null && !f.getA().getPersonRazza().equals("")) {
+			searchQuery.put("Perpetrator Race",f.getA().getPersonRazza());
+		}
+		if(f.getA().getPersonSex()!=null && !f.getA().getPersonSex().equals("")) {
+			searchQuery.put("Perpetrator Sex",f.getA().getPersonSex());
+		}
+		if(f.getV().getRangePersonAge()!=null && !f.getV().getRangePersonAge().get(0).equals("")) {
+			if(f.getV().getRangePersonAge().get(0).equals(f.getV().getRangePersonAge().get(1))) {    			
+				searchQuery.put("Victim Age",f.getV().getRangePersonAge().get(0));
+			}else {
+
+				Bson condition = new Document("$gte", f.getV().getRangePersonAge().get(0)).append("$lte",f.getV().getRangePersonAge().get(1));
+
+				searchQuery.put("Victim Age",condition);
+			}
+		}
+		if(f.getA().getRangePersonAge()!=null && !f.getA().getRangePersonAge().get(0).equals("")) {
+			if(f.getA().getRangePersonAge().get(0).equals(f.getA().getRangePersonAge().get(1))) {    			
+				searchQuery.put("Perpetrator Age",f.getA().getRangePersonAge().get(0));
+			}else {
+
+				Bson condition = new Document("$gt", f.getA().getRangePersonAge().get(0)).append("$lt",f.getA().getRangePersonAge().get(1));
+
+				searchQuery.put("Perpetrator Age",condition);
+			}
+		}
+
+		for(int i=0; i<razzeAssassini.size(); i++) {	
+
+			searchQuery.put("Perpetrator Race",razzeAssassini.get(i));
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					count++;
+					cursor.next();
+					//System.out.println(cursor.next().toJson());
+
+				}
+				CoppiaXY c= new CoppiaXY(razzeAssassini.get(i),count);
+				result.add(c);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" √®: "+count);
+			} finally {
+				cursor.close();
+			}
+		}
+
+		return result;
+	}
+
 
 	private BasicDBObject controlli(Filtro f) {
 		BasicDBObject searchQuery = new BasicDBObject();
