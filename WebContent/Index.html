@@ -21,19 +21,17 @@
 
 	<div class="container">
 		<div class="row">
-		
+
 			<div class="col-sm-12">
 				<br>
 				<h1>Analisi Omicidi US dal 1980 al 2014</h1>
 				<p>Quesa pagina web permette di analizzare e visualizzare gli
 					omicidi avvenuti in America (solo determinati stati) dal 1980 al
-					2014.
-				</p>
+					2014.</p>
 				<blockquote>
-				<p>E' possibile cambiare i parametri di ricerca e filtrare i
-				   risultati di ricerca, che verranno mostrati infine graficamente.
-				</p>
-				<footer>UniSA</footer>
+					<p>E' possibile cambiare i parametri di ricerca e filtrare i
+						risultati di ricerca, che verranno mostrati infine graficamente.</p>
+					<footer>UniSA</footer>
 				</blockquote>
 
 				<div>
@@ -42,38 +40,53 @@
 						<option selected="selected">Month</option>
 						<option>State</option>
 						<option>City</option>
+						<option>Victim Sex</option>
+						<option>Perpetrator Sex</option>
+						<option>Victim Age</option>
+						<option>Perpetrator Age</option>
+						<option>Victim Race</option>
+						<option>Perpetrator Race</option>
+						<option>Relationship</option>
+						<option>Weapon</option>
 					</select>
-					
+
 					<button class="filtri" onclick="mostra()">add filtri</button>
-					
+
 					<div id="sezFiltri">
 						<button class="f" value="Year">Year</button>
 						<button class="f" value="State">State</button>
 						<button class="f" value="Relationship">Relationship</button>
 						<button class="f" value="Weapon">Weapon</button>
 						<button class="f" value="Victim Race">Victim Race</button>
-						<button class="f" value="Perpetrator Race">Perpetrator Race</button>
+						<button class="f" value="Perpetrator Race">Perpetrator
+							Race</button>
 						<button class="f" value="Month">Month</button>
 						<button class="f" value="Victim Sex">Victim Sex</button>
 						<button class="f" value="Victim Age">Victim Age</button>
 						<button class="f" value="Perpetrator Sex">Perpetrator Sex</button>
 						<button class="f" value="Perpetrator Age">Perpetrator Age</button>
 					</div>
-					
+
+
 					<div id="section">
-					
+
 						<div class="selezione">
-							<label class="labelSelect">Anno</label>
-							
-							<select id="Year" style="display: none" class="customSelect">
+							<label id="labelYear" class="labelSelect">Anno da</label> <select
+								id="Year" style="display: none" class="customSelect"
+								onchange="settaFine()">
+							</select> <label id="labelYearTo" class="labelSelect">a</label> <select
+								id="YearTo" style="display: none" class="customSelect"
+								onchange="settaFine()">
 							</select>
-							<button id="cancYear" class="bottoneCanc" style="display: none" value="Year" onclick="cancella(value)">X</button>														
+
+							<button id="cancYear" class="bottoneCanc" value="Year"
+								onclick="cancella(value)">X</button>
 						</div>
-						
+
+
 						<div class="selezione">
-							<label class="labelSelect">Mese</label>
-							
-							<select id="Month"style="display: none" class="customSelect">
+							<label id="labelMonth" class="labelSelect">Mese</label> <select
+								id="Month" style="display: none" class="customSelect">
 								<option>January</option>
 								<option>February</option>
 								<option>March</option>
@@ -86,94 +99,61 @@
 								<option>October</option>
 								<option>November</option>
 								<option>December</option>
-							</select> 
-							<button id="cancMonth" class="bottoneCanc" style="display: none" value="Month" onclick="cancella(value)">X</button>
+							</select>
+							<button id="cancMonth" class="bottoneCanc" value="Month"
+								onclick="cancella(value)">X</button>
 						</div>
-						
+
 						<div class="selezione">
-							<label class="labelSelect">Stato</label>
-							
-							<select id="State" style="display: none" class="customSelect">
-							</select> 
-							<button id="cancState"class="bottoneCanc" style="display: none" value="State" onclick="cancella(value)">X</button>
+							<label id="labelState" class="labelSelect">Stato</label> <select
+								id="State" style="display: none" class="customSelect">
+							</select>
+							<button id="cancState" class="bottoneCanc" value="State"
+								onclick="cancella(value)">X</button>
 						</div>
-						
+
 						<div class="selezione">
-							<label class="labelSelect">Arma</label>
-							
-							<select id="Weapon" style="display: none" class="customSelect">
-							</select> 
-							<button id="cancWeapon" class="bottoneCanc" style="display: none" value="Weapon" onclick="cancella(value)">X</button>
+							<label id="labelWeapon" class="labelSelect">Arma</label> <select
+								id="Weapon" style="display: none" class="customSelect">
+							</select>
+							<button id="cancWeapon" class="bottoneCanc" value="Weapon"
+								onclick="cancella(value)">X</button>
 						</div>
-						
+
 						<div class="selezione">
-							<label class="labelSelect">Relazione</label>
-							
-							<select id="Relationship" style="display: none" class="customSelect">
-							</select> 
-							<button id="cancRelationship" class="bottoneCanc" style="display: none" value="Relationship" onclick="cancella(value)">X</button>
+							<label id="labelRelationship" class="labelSelect">Relazione</label>
+							<select id="Relationship" style="display: none"
+								class="customSelect">
+							</select>
+							<button id="cancRelationship" class="bottoneCanc"
+								value="Relationship" onclick="cancella(value)">X</button>
 						</div>
-						
+
 						<div class="selezione">
-							<label class="labelSelect">Razza Vittima</label>
-							
-							<select id="Victim Race" style="display: none" class="customSelect">
-							</select> 
-							<button id="cancVictim Race" class="bottoneCanc" style="display: none" value="Victim Race" onclick="cancella(value)">X</button>
+							<label id="labelVictim Race" class="labelSelect">Razza
+								Vittima</label> <select id="Victim Race" style="display: none"
+								class="customSelect">
+							</select>
+							<button id="cancVictim Race" class="bottoneCanc"
+								value="Victim Race" onclick="cancella(value)">X</button>
 						</div>
-						
+
 						<div class="selezione">
-							<label class="labelSelect">Sesso Vittima</label>
-							
-							<select id="Victim Sex" style="display: none" class="customSelect">
+							<label id="labelVictim Sex" class="labelSelect">Sesso
+								Vittima</label> <select id="Victim Sex" style="display: none"
+								class="customSelect">
 								<option>Male</option>
 								<option>Female</option>
 								<option>Unknown</option>
-							</select> 
-							<button id="cancVictim Sex" class="bottoneCanc" style="display: none" value="Victim Sex" onclick="cancella(value)">X</button>
+							</select>
+							<button id="cancVictim Sex" class="bottoneCanc"
+								value="Victim Sex" onclick="cancella(value)">X</button>
 						</div>
-						
+
 						<div class="selezione">
-							<label class="labelSelect">Età Vittima</label>
-							
-							<select id="Victim Age" style="display: none" class="customSelect">
-								<option>minore di 15</option>
-								<option>dai 15 ai 20</option>
-								<option>dai 21 ai 25</option>
-								<option>dai 26 ai 34</option>
-								<option>dai 35 ai 54</option>
-								<option>dai 55 ai 64</option>
-								<option>dai 65 ai 75</option>
-								<option>dai 76 ai 84</option>
-								<option>maggiore dei 84</option>
-							</select> 
-							<button id="cancVictim Age" class="bottoneCanc" style="display: none" value="Victim Age" onclick="cancella(value)">X</button>
-						</div>
-						
-						
-						<div class="selezione">
-							<label class="labelSelect">Razza Assassino</label>
-							
-							<select id="Perpetrator Race" style="display: none" class="customSelect">
-							</select> 
-							<button id="cancPerpetrator Race" class="bottoneCanc" style="display: none" value="Perpetrator Race" onclick="cancella(value)">X</button>
-						</div>
-						
-						<div class="selezione">
-							<label class="labelSelect">Sesso Assasino</label>
-							
-							<select id="Perpetrator Sex" style="display: none" class="customSelect">
-								<option>Male</option>
-								<option>Female</option>
-								<option>Unknown</option>
-							</select> 
-							<button id="cancPerpetrator Sex" class="bottoneCanc" style="display: none" value="Perpetrator Sex" onclick="cancella(value)">X</button>
-						</div>
-						
-						<div class="selezione">
-							<label class="labelSelect">Età Assassino</label>
-							
-							<select id="Perpetrator Age" style="display: none" style="display: none" class="customSelect">
+							<label id="labelVictim Age" class="labelSelect">Età
+								Vittima</label> <select id="Victim Age" style="display: none"
+								class="customSelect">
 								<option>minore di 15</option>
 								<option>dai 15 ai 20</option>
 								<option>dai 21 ai 25</option>
@@ -184,33 +164,75 @@
 								<option>dai 76 ai 84</option>
 								<option>maggiore dei 84</option>
 							</select>
-							<button id="cancPerpetrator Age" class="bottoneCanc" style="display: none" value="Perpetrator Age" onclick="cancella(value)">X</button>
+							<button id="cancVictim Age" class="bottoneCanc"
+								value="Victim Age" onclick="cancella(value)">X</button>
 						</div>
-						
+
+
+						<div class="selezione">
+							<label id="labelPerpetrator Race" class="labelSelect">Razza
+								Assassino</label> <select id="Perpetrator Race" style="display: none"
+								class="customSelect">
+							</select>
+							<button id="cancPerpetrator Race" class="bottoneCanc"
+								value="Perpetrator Race" onclick="cancella(value)">X</button>
+						</div>
+
+						<div class="selezione">
+							<label id="labelPerpetrator Sex" class="labelSelect">Sesso
+								Assasino</label> <select id="Perpetrator Sex" style="display: none"
+								class="customSelect">
+								<option>Male</option>
+								<option>Female</option>
+								<option>Unknown</option>
+							</select>
+							<button id="cancPerpetrator Sex" class="bottoneCanc"
+								value="Perpetrator Sex" onclick="cancella(value)">X</button>
+						</div>
+
+						<div class="selezione">
+							<label id="labelPerpetrator Age" class="labelSelect">Età
+								Assassino</label> <select id="Perpetrator Age" style="display: none"
+								style="display: none" class="customSelect">
+								<option>minore di 15</option>
+								<option>dai 15 ai 20</option>
+								<option>dai 21 ai 25</option>
+								<option>dai 26 ai 34</option>
+								<option>dai 35 ai 54</option>
+								<option>dai 55 ai 64</option>
+								<option>dai 65 ai 75</option>
+								<option>dai 76 ai 84</option>
+								<option>maggiore dei 84</option>
+							</select>
+							<button id="cancPerpetrator Age" class="bottoneCanc"
+								value="Perpetrator Age" onclick="cancella(value)">X</button>
+						</div>
+
 					</div>
-					
-					
+
 					<br>
 					<button class="f" onclick='graficoApp()'>confronta</button>
-					<br>
-					<label id="userSelected"></label>
-					</div>
-						<br> <br>
-						<div id="chartContainer">
-							<canvas id="myChart"></canvas>
-					</div>
-				
-				<br> 
-				<br>
-				
+					<br> <label id="userSelected"></label>
+				</div>
+				<br> <br>
+				<div id="chartContainer">
+					<canvas id="myChart"></canvas>
+				</div>
+
+				<br> <br>
+
 			</div>
 		</div>
 	</div>
 
 </body>
 <script>
-	
-	function selezAscissa(){
+	function settaFine() {
+		var x = document.getElementById("Year").selectedIndex;
+		//document.getElementById("YearTo").selectedIndex = x;
+	}
+
+	function selezAscissa() {
 		var x = document.getElementById("ascissa").value;
 		cancella("Year");
 		cancella("State");
@@ -223,59 +245,93 @@
 		cancella("Victim Age");
 		cancella("Perpetrator Sex");
 		cancella("Perpetrator Age");
-		
+
 	}
-	
-	function mostra(){
-		
-		if ( document.getElementById("sezFiltri").style.display == "none")
-	    {
+
+	function mostra() {
+
+		if (document.getElementById("sezFiltri").style.display == "none") {
 			document.getElementById("sezFiltri").style.display = "block";
-	    }else{
+		} else {
 			document.getElementById("sezFiltri").style.display = "none";
-	    }
+		}
 	}
-	
+
 	//funzione che elimina un filtro precedentemente selezionato dall'utente
 	function cancella(c) {
-		//document.getElementById(c).innerHTML = "";
+		if (c == 'Year') {
+			var labelTo = "label" + c + "To";
+			document.getElementById(labelTo).style.display = "none";
+			var selectTo = c + "To"
+			document.getElementById(selectTo).style.display = "none";
+		}
 		document.getElementById(c).style.display = "none";
 		var v = "canc" + c;
 		document.getElementById(v).style.display = "none";
+		var lab = "label" + c;
+		document.getElementById(lab).style.display = "none";
 	}
-	
+
 	//funzione che crea la select con i valori del filtro selezionato dall'utente
 	$(".f").click(function() {
-		var fifi = $(this).html();
-		var v = "canc" + fifi;
-		var x = document.getElementById("ascissa").value;
-		if(x!=fifi){
-		document.getElementById(v).style.display = "inline";
-		document.getElementById(fifi).style.display = "inline";
-		}else{
-			alert("Hai già selezionato per ascissa il valore "+x+" ,non puoi sceglierlo come filtro!");
-		}
-		
-		if(fifi=='Year' || fifi=='Perpetrator Race' || fifi=='Victim Race' || fifi=='Relationship' || fifi=='Weapon' || fifi=='State'){
-			$.get("ShowFilter?filtro=" + fifi, function(data, status) {
-		
-				var i = 0;
-				var str = "";
-				var d = JSON.parse(data);
-				for (i = 0; i < d.length; i++) {
-					var x = document.getElementById(fifi);
-					var option = document.createElement("option");
-					option.text = d[i].filtro;
-					x.add(option);
-				}
-			});
-		}
-	
-	});
-	
+						var fifi = $(this).html();
+						var v = "canc" + fifi;
+						var lab = "label" + fifi;
+						var x = document.getElementById("ascissa").value;
+
+						if (x != fifi) {
+							if (fifi == 'Year') {
+								var labelTo = "label" + fifi + "To";
+								document.getElementById(labelTo).style.display = "block";
+								var selectTo = fifi + "To"
+								document.getElementById(selectTo).style.display = "inline";
+							}
+							document.getElementById(v).style.display = "inline";
+							document.getElementById(lab).style.display = "block";
+							document.getElementById(fifi).style.display = "inline";
+						} else {
+							alert("Hai già selezionato per ascissa il valore "
+									+ x + " ,non puoi sceglierlo come filtro!");
+						}
+
+						if (fifi == 'Year' || fifi == 'Perpetrator Race'
+								|| fifi == 'Victim Race'
+								|| fifi == 'Relationship' || fifi == 'Weapon'
+								|| fifi == 'State') {
+							$.get("ShowFilter?filtro=" + fifi, function(data,
+									status) {
+
+								var i = 0;
+								var str = "";
+								var d = JSON.parse(data);
+								for (i = 0; i < d.length; i++) {
+									var x = document.getElementById(fifi);
+									var option = document
+											.createElement("option");
+									option.text = d[i].filtro;
+									x.add(option);
+
+								}
+
+								if (fifi == 'Year') {
+									for (i = 0; i < d.length; i++) {
+										var x = document
+												.getElementById('YearTo');
+										var option = document
+												.createElement("option");
+										option.text = d[i].filtro;
+										x.add(option);
+
+									}
+								}
+							});
+						}
+
+					});
+
 	//funzione che crea il grafico con i valori della query in back-end
 	function graficoApp() {
-	
+
 		var lab = document.getElementById("ascissa").value;
 		//IMPORTANTE PER AGGIORNARE IL GRAFICO, altrimenti quando il mouse passa sopra il grafico si rivede anche il grafico precedente
 		document.getElementById("chartContainer").innerHTML = '&nbsp;';
@@ -293,11 +349,11 @@
 				datasets : [ {
 					label : 'Omicidi per ' + lab, //dovrà essere dinamica per descrizioni dettagliate
 					data : [
-	
+
 					],
 					//backgroundColor:'green',
 					backgroundColor : [
-	
+
 					],
 					borderWidth : 1,
 					borderColor : '#777',
@@ -358,188 +414,219 @@
 				}
 			}
 		});
-	
+
 		/*	massPopChart.data.datasets[0].data.push(10);
 			massPopChart.data.datasets[0].backgroundColor.push('rgba(54, 162, 235, 0.6)');
 			massPopChart.data.labels.push("prova");
 			massPopChart.update();
 		 */
-	
+
 		$(document).ready(function() {
-			///////////////prende il valore della select, farlo per tutti i filtri, se un filtro non è stato scelto mandare "" al back end
-			var lab = document.getElementById("ascissa").value;
-			var labeluser = 'Grafico per valori con ascissa '+lab+', e i seguenti filtri: ';
-			var state;
-			if ( document.getElementById("State").style.display == "none"){
-				state="";
-			}else{				
-				 state = document.getElementById("State").value; 
-				 labeluser+=', State: '+ state;
-			}			
-			var weapon;
-			if ( document.getElementById("Weapon").style.display == "none"){
-				weapon="";
-			}else{		
-				weapon= document.getElementById("Weapon").value; 	
-				labeluser+=', weapon: '+weapon; 
-			}
-			var rel;
-			if ( document.getElementById("Relationship").style.display == "none"){
-				rel="";
-			}else{		
-				rel = document.getElementById("Relationship").value;
-				labeluser+= ', relationship: '+rel;
-			}			
-			var month;
-			if ( document.getElementById("Month").style.display == "none"){
-				month="";
-			}else{	
-				month= document.getElementById("Month").value;
-				labeluser+= ', month: '+month;
-			}
-			var year;
-			if (document.getElementById("Year").style.display == "none"){
-				year="";
-			}else{	
-				year = document.getElementById("Year").value; //solo inizio per ora
-				labeluser+= ', year: '+year;
-			}
-			var razzaV;
-			if ( document.getElementById("Victim Race").style.display == "none"){
-				razzaV="";
-			}else{	
-				razzaV= document.getElementById("Victim Race").value; 
-				labeluser+= ', victim race: '+razzaV;
-			}
-			var razzaA;
-			if ( document.getElementById("Perpetrator Race").style.display == "none"){
-				razzaA="";
-			}else{	
-				razzaA= document.getElementById("Perpetrator Race").value;
-				labeluser+= ', perpretrator race: '+razzaA;
-			}
-			var sessoV;
-			if ( document.getElementById("Victim Sex").style.display == "none"){
-				sessoV="";
-			}else{	
-				sessoV= document.getElementById("Victim Sex").value; 
-				labeluser+= ', victim sex: '+sessoV;
-			}
-			var sessoA;
-			if ( document.getElementById("Perpetrator Sex").style.display == "none"){
-				sessoA="";
-			}else{	
-				sessoA= document.getElementById("Perpetrator Sex").value; 
-				labeluser+= ', perpetrator sex: '+sessoA;
-			}
-			//funzione di calcolo età dalla select	
-			var AgeVStart, AgeVEnd;
-			if ( document.getElementById("Victim Age").style.display == "none"){
-				AgeVStart="";
-				AgeVEnd="";
-			}else{	
-				switch(document.getElementById("Victim Age").selectedIndex){
-					case 0: 	
-						AgeVStart="0";
-						AgeVEnd="14";
-						break;
-					case 1: 	
-						AgeVStart="15";
-						AgeVEnd="20";
-						break;
-					case 2: 	
-						AgeVStart="21";
-						AgeVEnd="25";
-						break;
-					case 3: 	
-						AgeVStart="26";
-						AgeVEnd="34";
-						break;
-					case 4: 	
-						AgeVStart="35";
-						AgeVEnd="54";
-						break;
-					case 5: 	
-						AgeVStart="55";
-						AgeVEnd="64";
-						break;
-					case 6: 	
-						AgeVStart="65";
-						AgeVEnd="75";
-						break;
-					case 7: 	
-						AgeVStart="76";
-						AgeVEnd="84";
-						break;
-					case 8: 	
-						AgeVStart="85";
-						AgeVEnd="100";
-						break;
-					
-					
-				}
-				labeluser+= ', anni vittima da: '+AgeVStart+', a: '+AgeVEnd;
-				
-			}			
-			var AgeAStart, AgeAEnd;
-			if ( document.getElementById("Perpetrator Age").style.display == "none"){
-				AgeAStart="";
-				AgeAEnd="";
-			}else{	
-				switch(document.getElementById("Perpetrator Age").selectedIndex){
-					case 0: 	
-						AgeAStart="0";
-						AgeAEnd="14";
-						break;
-					case 1: 	
-						AgeAStart="15";
-						AgeAEnd="20";
-						break;
-					case 2: 	
-						AgeAStart="21";
-						AgeAEnd="25";
-						break;
-					case 3: 	
-						AgeAStart="26";
-						AgeAEnd="34";
-						break;
-					case 4: 	
-						AgeAStart="35";
-						AgeAEnd="54";
-						break;
-					case 5: 	
-						AgeAStart="55";
-						AgeAEnd="64";
-						break;
-					case 6: 	
-						AgeAStart="65";
-						AgeAEnd="75";
-						break;
-					case 7: 	
-						AgeAStart="76";
-						AgeAEnd="84";
-						break;
-					case 8: 	
-						AgeAStart="85";
-						AgeAEnd="100";
-						break;
-					
-					
-				}
-				labeluser+= ', anni assassino da: '+AgeAStart+', a: '+AgeAVEnd;
-			}		
-			
-			labeluser+=' :';
-			document.getElementById("userSelected").innerHTML=labeluser;
-			var ascissa = document.getElementById("ascissa").value;
-			$.get("ShowGraphic?ascissa=" + ascissa+"&year="+year+"&state="+state+"&month="+month+"&relationship="+rel+"&weapon="+weapon+"&victimSex="+sessoV+"&perpetratorSex="+sessoA+"&victimRace="+razzaV+"&perpetratorRace="+razzaA+"&ageVstart="+AgeVStart+"&ageVend="+AgeVEnd+"&ageAstart="+AgeAStart+"&ageAend="+AgeAEnd, function(data, status) {
-				perm(data);
-			});
-		});
-	
+							///////////////prende il valore della select, farlo per tutti i filtri, se un filtro non è stato scelto mandare "" al back end
+							var x = parseInt(document.getElementById("Year").value);
+							var y = parseInt(document.getElementById("YearTo").value);
+
+							if (y < x) {
+								alert("Anno di fine deve essere maggiore o uguale ad anno di inizio");
+							} else {
+								var lab = document.getElementById("ascissa").value;
+								var labeluser = 'Grafico per valori con ascissa '
+										+ lab + ', e i seguenti filtri: ';
+								var state;
+								if (document.getElementById("State").style.display == "none") {
+									state = "";
+								} else {
+									state = document.getElementById("State").value;
+									labeluser += ', State: ' + state;
+								}
+								var weapon;
+								if (document.getElementById("Weapon").style.display == "none") {
+									weapon = "";
+								} else {
+									weapon = document.getElementById("Weapon").value;
+									labeluser += ', weapon: ' + weapon;
+								}
+								var rel;
+								if (document.getElementById("Relationship").style.display == "none") {
+									rel = "";
+								} else {
+									rel = document
+											.getElementById("Relationship").value;
+									labeluser += ', relationship: ' + rel;
+								}
+								var month;
+								if (document.getElementById("Month").style.display == "none") {
+									month = "";
+								} else {
+									month = document.getElementById("Month").value;
+									labeluser += ', month: ' + month;
+								}
+								var year;
+								var yearTo;
+								if (document.getElementById("Year").style.display == "none") {
+									year = "";
+								} else {
+									year = document.getElementById("Year").value;
+									yearTo = document.getElementById("YearTo").value;
+									labeluser += ', year: ' + year;
+									labeluser += ', yearTo: ' + yearTo
+								}
+								var razzaV;
+								if (document.getElementById("Victim Race").style.display == "none") {
+									razzaV = "";
+								} else {
+									razzaV = document
+											.getElementById("Victim Race").value;
+									labeluser += ', victim race: ' + razzaV;
+								}
+								var razzaA;
+								if (document.getElementById("Perpetrator Race").style.display == "none") {
+									razzaA = "";
+								} else {
+									razzaA = document
+											.getElementById("Perpetrator Race").value;
+									labeluser += ', perpretrator race: '
+											+ razzaA;
+								}
+								var sessoV;
+								if (document.getElementById("Victim Sex").style.display == "none") {
+									sessoV = "";
+								} else {
+									sessoV = document
+											.getElementById("Victim Sex").value;
+									labeluser += ', victim sex: ' + sessoV;
+								}
+								var sessoA;
+								if (document.getElementById("Perpetrator Sex").style.display == "none") {
+									sessoA = "";
+								} else {
+									sessoA = document
+											.getElementById("Perpetrator Sex").value;
+									labeluser += ', perpetrator sex: ' + sessoA;
+								}
+								//funzione di calcolo età dalla select	
+								var AgeVStart, AgeVEnd;
+								if (document.getElementById("Victim Age").style.display == "none") {
+									AgeVStart = "";
+									AgeVEnd = "";
+								} else {
+									switch (document
+											.getElementById("Victim Age").selectedIndex) {
+									case 0:
+										AgeVStart = "0";
+										AgeVEnd = "14";
+										break;
+									case 1:
+										AgeVStart = "15";
+										AgeVEnd = "20";
+										break;
+									case 2:
+										AgeVStart = "21";
+										AgeVEnd = "25";
+										break;
+									case 3:
+										AgeVStart = "26";
+										AgeVEnd = "34";
+										break;
+									case 4:
+										AgeVStart = "35";
+										AgeVEnd = "54";
+										break;
+									case 5:
+										AgeVStart = "55";
+										AgeVEnd = "64";
+										break;
+									case 6:
+										AgeVStart = "65";
+										AgeVEnd = "75";
+										break;
+									case 7:
+										AgeVStart = "76";
+										AgeVEnd = "84";
+										break;
+									case 8:
+										AgeVStart = "85";
+										AgeVEnd = "100";
+										break;
+
+									}
+									labeluser += ', anni vittima da: '
+											+ AgeVStart + ', a: ' + AgeVEnd;
+
+								}
+								var AgeAStart, AgeAEnd;
+								if (document.getElementById("Perpetrator Age").style.display == "none") {
+									AgeAStart = "";
+									AgeAEnd = "";
+								} else {
+									switch (document
+											.getElementById("Perpetrator Age").selectedIndex) {
+									case 0:
+										AgeAStart = "0";
+										AgeAEnd = "14";
+										break;
+									case 1:
+										AgeAStart = "15";
+										AgeAEnd = "20";
+										break;
+									case 2:
+										AgeAStart = "21";
+										AgeAEnd = "25";
+										break;
+									case 3:
+										AgeAStart = "26";
+										AgeAEnd = "34";
+										break;
+									case 4:
+										AgeAStart = "35";
+										AgeAEnd = "54";
+										break;
+									case 5:
+										AgeAStart = "55";
+										AgeAEnd = "64";
+										break;
+									case 6:
+										AgeAStart = "65";
+										AgeAEnd = "75";
+										break;
+									case 7:
+										AgeAStart = "76";
+										AgeAEnd = "84";
+										break;
+									case 8:
+										AgeAStart = "85";
+										AgeAEnd = "100";
+										break;
+
+									}
+									labeluser += ', anni assassino da: '
+											+ AgeAStart + ', a: ' + AgeAVEnd;
+								}
+
+								labeluser += ' :';
+								document.getElementById("userSelected").innerHTML = labeluser;
+								var ascissa = document
+										.getElementById("ascissa").value;
+								$.get("ShowGraphic?ascissa=" + ascissa
+										+ "&year=" + year + "&yearTo=" + yearTo
+										+ "&state=" + state + "&month=" + month
+										+ "&relationship=" + rel + "&weapon="
+										+ weapon + "&victimSex=" + sessoV
+										+ "&perpetratorSex=" + sessoA
+										+ "&victimRace=" + razzaV
+										+ "&perpetratorRace=" + razzaA
+										+ "&ageVstart=" + AgeVStart
+										+ "&ageVend=" + AgeVEnd + "&ageAstart="
+										+ AgeAStart + "&ageAend=" + AgeAEnd,
+										function(data, status) {
+											perm(data);
+										});
+							}
+						});
+
 		function perm(data) {
 			var i = 0;
-	
+
 			var d = JSON.parse(data);
 			for (i = 0; i < d.length; i++) {
 				massPopChart.data.datasets[0].data.push(d[i].y);
@@ -547,13 +634,12 @@
 						.push('rgba(255, 206, 86, 0.6)');
 				massPopChart.data.labels.push(d[i].x);
 			}
-	
+
 			// massPopChart.data.datasets[0].data.push(0);
 			massPopChart.update();
-	
-		}
-	
-	}
 
+		}
+
+	}
 </script>
 </html>
