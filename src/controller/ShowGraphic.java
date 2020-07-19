@@ -93,18 +93,54 @@ public class ShowGraphic extends HttpServlet {
 		f.setRelationship(request.getParameter("relationship"));
 				
 		switch (ascissa) {
-		case "Year": 
-				 result=db.findForYear(f, collection);	
-			break;
-		case "Month":	
-				result=	db.findForMonth(f, collection);
-			break;
-		case "State":
-			result=	db.findForState(f, collection);
-			break;
-		case "City":	
-			result=	db.findForCity(f, collection);
-			break;
+        case "Year":
+            result=db.findForYear(f, collection);   
+            break;
+           
+        case "Month":   
+            result=    db.findForMonth(f, collection);
+            break;
+           
+        case "State":
+            result=    db.findForState(f, collection);
+            break;
+           
+        case "City":   
+            result=    db.findForCity(f, collection);
+            break;
+           
+        case "Victim Sex":
+            result=db.findForVictimSex(f, collection);
+            break;
+           
+        case "Perpetrator Sex":
+            result=db.findForPerpetratorSex(f, collection);
+            break;
+           
+        case "Victim Age":
+            result=db.findForVictimAge(f, collection);
+            break;
+           
+        case "Perpetrator Age":
+            result=db.findForPerpetratorAge(f, collection);
+            break;
+           
+        case "Victim Race":
+        	   result=db.findForVictimRace(f, collection);
+            break;
+           
+        case "Perpetrator Race":
+        	   result=db.findForPerpetratorRace(f, collection);
+            break;
+           
+        case "Weapon":
+        	   result=db.findForWeapon(f, collection);
+            break;
+           
+        case "Relationship":
+        	   result=db.findForRelationship(f, collection);
+            break;
+			
 		default:
 			break;
 		}
