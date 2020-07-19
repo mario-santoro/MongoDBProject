@@ -254,7 +254,26 @@ function selezAscissa() {
 	cancella("Victim Age");
 	cancella("Perpetrator Sex");
 	cancella("Perpetrator Age");
+	if(x=="City"){
+		document.getElementById("State").style.display="block";
+		document.getElementById("labelState").style.display="inline";
+		$.get("ShowFilter?filtro=" + "State", function(data,
+				status) {
 
+			var i = 0;
+			var str = "";
+			var d = JSON.parse(data);
+			for (i = 0; i < d.length; i++) {
+				var x = document.getElementById("State");
+				var option = document
+						.createElement("option");
+				option.text = d[i].filtro;
+				x.add(option);
+
+			}
+		});
+	}
+		
 }
 
 function mostra() {
@@ -304,7 +323,7 @@ $(".f")
 						alert("Hai già selezionato per ascissa il valore "
 								+ x + " ,non puoi sceglierlo come filtro!");
 					}
-
+					
 					if (fifi == 'Year' || fifi == 'Perpetrator Race'
 							|| fifi == 'Victim Race'
 							|| fifi == 'Relationship' || fifi == 'Weapon'
