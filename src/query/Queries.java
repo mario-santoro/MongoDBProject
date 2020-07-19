@@ -65,7 +65,7 @@ public class Queries {
 	public ArrayList<CoppiaXY> findForYear(Filtro f, MongoCollection<Document> collection){
 		BasicDBObject searchQuery = controlli(f);
 		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();		
-	
+
 		for(int i=f.getRangeYears().get(0); i<=f.getRangeYears().get(1); i++) {	
 
 			searchQuery.put("Year",""+i);
@@ -121,7 +121,7 @@ public class Queries {
 		BasicDBObject searchQuery = controlli(f);;
 		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
 		ArrayList<String> stati= findProperty(collection,"State");
-		
+
 
 		for(int i=0; i<stati.size(); i++) {	
 			searchQuery.put("State",stati.get(i));
@@ -150,7 +150,7 @@ public class Queries {
 		BasicDBObject searchQuery = controlli(f);
 		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
 		ArrayList<String> city= findCityOfState(collection, f.getState());
-	
+
 		for(int i=0; i<city.size(); i++) {	
 
 			searchQuery.put("City",city.get(i));
@@ -172,7 +172,7 @@ public class Queries {
 
 		return result;
 	}
-	
+
 	private BasicDBObject controlli(Filtro f) {
 		BasicDBObject searchQuery = new BasicDBObject();
 		if( !f.getState().equals("")) {
@@ -203,17 +203,243 @@ public class Queries {
 			searchQuery.put("Perpetrator Sex",f.getA().getPersonSex());
 		}
 		if(!f.getV().getRangePersonAge().get(0).equals("")) {
-				Bson condition = new Document("$gte", f.getV().getRangePersonAge().get(0)).append("$lte",f.getV().getRangePersonAge().get(1));
-				searchQuery.put("Victim Age",condition);
+			Bson condition = new Document("$gte", f.getV().getRangePersonAge().get(0)).append("$lte",f.getV().getRangePersonAge().get(1));
+			searchQuery.put("Victim Age",condition);
 		}
 		if( !f.getA().getRangePersonAge().get(0).equals("")) {
-				Bson condition = new Document("$gte", f.getA().getRangePersonAge().get(0)).append("$lte",f.getA().getRangePersonAge().get(1));
-				searchQuery.put("Perpetrator Age",condition);			
+			Bson condition = new Document("$gte", f.getA().getRangePersonAge().get(0)).append("$lte",f.getA().getRangePersonAge().get(1));
+			searchQuery.put("Perpetrator Age",condition);			
 		}
 		if( !f.getMounth().equals("")) {
 			searchQuery.put("Month",f.getMounth());
 		}
 		return searchQuery;
 	}
+
+	//ascissa eta vittima
+	public ArrayList<CoppiaXY> findForVictimAge(Filtro f, MongoCollection<Document> collection ){
+		BasicDBObject searchQuery = controlli(f);
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();    
+		int[][] eta= {{0,14},{15,20},{21,25},{26,34},{35,54},{55,64},{65,75},{76,84},{85,100}};
+		for(int i = 0;i<9;i++) {
+			
+			Bson condition = new Document("$gte", ""+eta[i][0]).append("$lte",""+eta[i][1]);
+			searchQuery.put("Victim Age",condition);
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					System.out.println(count + " Conto i muort");
+					count++;
+					cursor.next();
+				}
+				
+				CoppiaXY c= new CoppiaXY(eta[i][0]+ "-"+eta[i][1],count);
+				result.add(c);
+			} finally {
+				cursor.close();
+			}
+		}
+		return result;
+	}
+
+	//ascissa eta assassino
+	public ArrayList<CoppiaXY> findForPerpetratorAge(Filtro f, MongoCollection<Document> collection ){
+		BasicDBObject searchQuery = controlli(f);
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();    
+		int[][] eta= {{0,14},{15,20},{21,25},{26,34},{35,54},{55,64},{65,75},{76,84},{85,100}};
+		for(int i = 0;i<9;i++) {
+			Bson condition = new Document("$gte", ""+eta[i][0]).append("$lte",""+eta[i][1]);
+			searchQuery.put("Perpetrator Age",condition);
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					count++;
+					cursor.next();
+				}
+			
+				CoppiaXY c= new CoppiaXY(eta[i][0]+ "-"+eta[i][1],count);
+				result.add(c);
+			} finally {
+				cursor.close();
+			}
+		}
+		return result;
+	}
+
+
+
+	//ascissa sesso vittime
+	public ArrayList<CoppiaXY> findForVictimSex(Filtro f, MongoCollection<Document> collection ){
+		String sex[]= {"Male","Female","Unknown"};
+		BasicDBObject searchQuery = controlli(f);
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();        
+		for(int i = 0;i<3;i++) {
+			searchQuery.put("Victim Sex",sex[i]);
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					count++;
+					cursor.next();
+				}
+				CoppiaXY c= new CoppiaXY(sex[i],count);
+				result.add(c);
+			} finally {
+				cursor.close();
+			}
+		}
+		return result;
+	}
+
+
+
+	//ascissa sesso assassino
+	public ArrayList<CoppiaXY> findForPerpetratorSex(Filtro f, MongoCollection<Document> collection ){
+		String sex[]= {"Male","Female","Unknown"};
+		BasicDBObject searchQuery = controlli(f);
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();        
+		for(int i = 0;i<3;i++) {
+			searchQuery.put("Perpetrator Sex",sex[i]);
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					count++;
+					cursor.next();
+				}
+				CoppiaXY c= new CoppiaXY(sex[i],count);
+				result.add(c);
+			} finally {
+				cursor.close();
+			}
+		}
+		return result;
+	}
 	
+	public ArrayList<CoppiaXY> findForVictimRace(Filtro f, MongoCollection<Document> collection){ 
+		BasicDBObject searchQuery = controlli(f);
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
+
+		ArrayList<String> razzeVittime= findProperty(collection,"Victim Race");
+
+	
+
+		for(int i=0; i<razzeVittime.size(); i++) {	
+
+			searchQuery.put("Victim Race",razzeVittime.get(i));
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					count++;
+					cursor.next();
+					//System.out.println(cursor.next().toJson());
+
+				}
+				CoppiaXY c= new CoppiaXY(razzeVittime.get(i),count);
+				result.add(c);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" è: "+count);
+			} finally {
+				cursor.close();
+			}
+		}
+
+		return result;
+	}
+
+
+
+	//Query con ascissa relazione vttima
+	public ArrayList<CoppiaXY> findForRelationship(Filtro f, MongoCollection<Document> collection){ 
+		BasicDBObject searchQuery = controlli(f);
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
+		ArrayList<String> relationship= findProperty(collection,"Relationship");
+
+		for(int i=0; i<relationship.size(); i++) {	
+
+			searchQuery.put("Relationship",relationship.get(i));
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					count++;
+					cursor.next();
+					//System.out.println(cursor.next().toJson());
+
+				}
+				CoppiaXY c= new CoppiaXY(relationship.get(i),count);
+				result.add(c);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" è: "+count);
+			} finally {
+				cursor.close();
+			}
+		}
+
+		return result;
+	}
+
+	//Query con ascissa armi
+	public ArrayList<CoppiaXY> findForWeapon(Filtro f, MongoCollection<Document> collection){ 
+		BasicDBObject searchQuery = controlli(f);
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
+		ArrayList<String> weapons= findProperty(collection,"Weapon");
+
+		
+		for(int i=0; i<weapons.size(); i++) {	
+
+			searchQuery.put("Weapon",weapons.get(i));
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					count++;
+					cursor.next();
+					//System.out.println(cursor.next().toJson());
+
+				}
+				CoppiaXY c= new CoppiaXY(weapons.get(i),count);
+				result.add(c);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" è: "+count);
+			} finally {
+				cursor.close();
+			}
+		}
+
+		return result;
+	}
+
+	//ascissa razza assassino
+	public ArrayList<CoppiaXY> findForPerpetratorRace(Filtro f, MongoCollection<Document> collection){ 
+		BasicDBObject searchQuery = controlli(f);
+		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
+
+		ArrayList<String> razzeAssassini= findProperty(collection,"Perpetrator Race");
+
+		
+		for(int i=0; i<razzeAssassini.size(); i++) {	
+
+			searchQuery.put("Perpetrator Race",razzeAssassini.get(i));
+			MongoCursor<Document> cursor = collection.find(searchQuery).iterator();  
+			int count=0;
+			try {
+				while (cursor.hasNext()) {
+					count++;
+					cursor.next();
+					//System.out.println(cursor.next().toJson());
+
+				}
+				CoppiaXY c= new CoppiaXY(razzeAssassini.get(i),count);
+				result.add(c);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" è: "+count);
+			} finally {
+				cursor.close();
+			}
+		}
+
+		return result;
+	}
+
+
 }
