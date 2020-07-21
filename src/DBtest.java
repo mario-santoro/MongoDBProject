@@ -37,7 +37,7 @@ public class DBtest {
 		f.setA(a);
 		f.setV(v);
 
-		if(ordinamento.contentEquals("anno")) {
+		if(ordinamento.contentEquals("mese")) {
 
 			System.out.println("inserisci filtri");
 			System.out.println("anno inizio (min 1980)");
@@ -47,8 +47,8 @@ public class DBtest {
 			f.setRangeYears(binary);
 			//System.out.println("Inserisci stato");
 			//f.setState(in.nextLine()); 
-			System.out.println("Inserisci mese");
-			f.setMounth(in.nextLine()); 
+		//	System.out.println("Inserisci mese");
+			//f.setMounth(in.nextLine()); 
 			System.out.println("Inserisci anni della vittima");
 			bin.add(in.nextLine());
 			System.out.println("Inserisci anni della vittima");
@@ -58,6 +58,7 @@ public class DBtest {
 			System.out.println("Inserisci sesso vittima");
 			f.getV().setPersonSex(in.nextLine());
 
+			
 			//db.findForDate(f);
 
 		}

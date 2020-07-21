@@ -52,6 +52,7 @@ public class ShowGraphic extends HttpServlet {
 		Person a= new Person();
 		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
 		String year=request.getParameter("year");
+		String yearTo=request.getParameter("yearTo");
 		f.setA(a);
 		f.setV(v);
 		//inserisco filtro inizio anno
@@ -59,7 +60,7 @@ public class ShowGraphic extends HttpServlet {
 		if(!year.contentEquals("")) {	
 			binary.add(Integer.parseInt(year));
 			//inserisco filtro fine anno
-			binary.add(Integer.parseInt(year));
+			binary.add(Integer.parseInt(yearTo));
 			f.setRangeYears(binary);
 		}else {
 			ArrayList<String> y= db.findProperty(collection, "Year");
@@ -86,25 +87,61 @@ public class ShowGraphic extends HttpServlet {
 		//inserisci razza dell'assassino
 		f.getA().setPersonRazza(request.getParameter("perpetratorRace"));
 		//inserisci razza della vittima
-		f.getV().setPersonRazza(request.getParameter("vicitmSex"));
+		f.getV().setPersonRazza(request.getParameter("victimRace"));
 		//inserisci arma
 		f.setWeapon(request.getParameter("weapon"));
 		//inserisci relazione
 		f.setRelationship(request.getParameter("relationship"));
 				
 		switch (ascissa) {
-		case "Year": 
-				 result=db.findForYear(f, collection);	
-			break;
-		case "Month":	
-				result=	db.findForMonth(f, collection);
-			break;
-		case "State":
-			result=	db.findForState(f, collection);
-			break;
-		case "City":	
-			result=	db.findForCity(f, collection);
-			break;
+        case "Year":
+            result=db.findForYear(f, collection);   
+            break;
+           
+        case "Month":   
+            result=    db.findForMonth(f, collection);
+            break;
+           
+        case "State":
+            result=    db.findForState(f, collection);
+            break;
+           
+        case "City":   
+            result=    db.findForCity(f, collection);
+            break;
+           
+        case "Victim Sex":
+            result=db.findForVictimSex(f, collection);
+            break;
+           
+        case "Perpetrator Sex":
+            result=db.findForPerpetratorSex(f, collection);
+            break;
+           
+        case "Victim Age":
+            result=db.findForVictimAge(f, collection);
+            break;
+           
+        case "Perpetrator Age":
+            result=db.findForPerpetratorAge(f, collection);
+            break;
+           
+        case "Victim Race":
+        	   result=db.findForVictimRace(f, collection);
+            break;
+           
+        case "Perpetrator Race":
+        	   result=db.findForPerpetratorRace(f, collection);
+            break;
+           
+        case "Weapon":
+        	   result=db.findForWeapon(f, collection);
+            break;
+           
+        case "Relationship":
+        	   result=db.findForRelationship(f, collection);
+            break;
+			
 		default:
 			break;
 		}
