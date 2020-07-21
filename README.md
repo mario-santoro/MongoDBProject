@@ -1,4 +1,4 @@
-<img src="https://github.com/mario-santoro/MongoDBProject/blob/master/Icon/db2-ICON2.png">
+<img src="https://github.com/mario-santoro/MongoDBProject/blob/master/Icon/db2-ICON2.png" style="width:200px">
 
 # MongoDBProject
 Progetto per l'esame di DataBase2 della magistrale di Informatica, Università degli Studi di Salerno.
