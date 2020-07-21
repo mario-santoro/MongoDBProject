@@ -305,6 +305,10 @@ $(".f")
 		.click(
 				function() {
 					var fifi = $(this).html();
+					if(document.getElementById(fifi).style.display != "none")
+					{
+						
+					}else{
 					var v = "canc" + fifi;
 					var lab = "label" + fifi;
 					var x = document.getElementById("ascissa").value;
@@ -354,9 +358,10 @@ $(".f")
 
 								}
 							}
+						
 						});
 					}
-
+					}
 				});
 
 //funzione che crea il grafico con i valori della query in back-end
