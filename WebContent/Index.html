@@ -58,8 +58,7 @@
 						<button class="f" value="Relationship">Relationship</button>
 						<button class="f" value="Weapon">Weapon</button>
 						<button class="f" value="Victim Race">Victim Race</button>
-						<button class="f" value="Perpetrator Race">Perpetrator
-							Race</button>
+						<button class="f" value="Perpetrator Race">Perpetrator Race</button>
 						<button class="f" value="Month">Month</button>
 						<button class="f" value="Victim Sex">Victim Sex</button>
 						<button class="f" value="Victim Age">Victim Age</button>
@@ -151,7 +150,7 @@
 						</div>
 
 						<div class="selezione">
-							<label id="labelVictim Age" class="labelSelect">Età
+							<label id="labelVictim Age" class="labelSelect">EtÃ 
 								Vittima</label> <select id="Victim Age" style="display: none"
 								class="customSelect">
 								<option>minore di 15</option>
@@ -191,7 +190,7 @@
 						</div>
 
 						<div class="selezione">
-							<label id="labelPerpetrator Age" class="labelSelect">Età
+							<label id="labelPerpetrator Age" class="labelSelect">EtÃ 
 								Assassino</label> <select id="Perpetrator Age" style="display: none"
 								style="display: none" class="customSelect">
 								<option>minore di 15</option>
@@ -313,7 +312,7 @@
 							document.getElementById(lab).style.display = "block";
 							document.getElementById(fifi).style.display = "inline";
 						} else {
-							alert("Hai gi� selezionato per ascissa il valore "
+							alert("Hai già selezionato per ascissa il valore "
 									+ x + " ,non puoi sceglierlo come filtro!");
 						}
 						
@@ -462,7 +461,7 @@
 		$(document)
 				.ready(
 						function() {
-							///////////////prende il valore della select, farlo per tutti i filtri, se un filtro non è stato scelto mandare "" al back end
+							///////////////prende il valore della select, farlo per tutti i filtri, se un filtro non Ã¨ stato scelto mandare "" al back end
 							var x = parseInt(document.getElementById("Year").value);
 							var y = parseInt(document.getElementById("YearTo").value);
 
@@ -547,7 +546,7 @@
 									labeluser += ' [perpetrator sex: ' + sessoA
 											+ ']';
 								}
-								//funzione di calcolo età dalla select	
+								//funzione di calcolo etÃ  dalla select	
 								var AgeVStart, AgeVEnd;
 								if (document.getElementById("Victim Age").style.display == "none") {
 									AgeVStart = "";
