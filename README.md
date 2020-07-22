@@ -7,6 +7,7 @@ Progetto per l'esame di DataBase2 della magistrale di Informatica, Università d
 Questo progetto si basa sullo sviluppo di un applicativo che si interfacci con <b>DBMS NoSQL</b> (non relazionale), quale <b>MongoDB</b>, nel quale è caricato un dataset. Questo applicativo prevede una serie di query parametriche, ed una successiva visualuzzazione dei risultati in un opportuno grafico per la stessa rappresentazione.
 
 # Tecnologie usate
+<img src="https://github.com/mario-santoro/MongoDBProject/blob/master/Icon/Immagine1.png" height="200">
 Le tecnologie scelte per lo sviluppo di questo applicativo sono: <b>Java</b> come linguaggio di programmazione; come DBMS non relazionale è stato scelto, come previo descritto, <b>MongoDB</b>; mentre per l'interfacciamento con l'utente è stato scelto un interfaccia web tramite il server web <b>Tomcat</b>. Per la rappresentazione grafica è stato usato lo script <a href="https://www.chartjs.org/">Chart.js</a>.
 
 # Introduzione MongoDB
