@@ -111,6 +111,7 @@
 							</select>
 							<button id="cancState" class="bottoneCanc" value="State"
 								onclick="cancella(value)">X</button>
+							<button id="cancStateVuoto" class="bottoneCancVuoto" value="State"> </button>
 						</div>
 
 						<div class="selezione">
@@ -252,6 +253,7 @@
 		if (x == "City") {
 			document.getElementById("State").style.display = "block";
 			document.getElementById("labelState").style.display = "inline";
+			document.getElementById("cancStateVuoto").style.display = "inline";
 			$.get("ShowFilter?filtro=" + "State", function(data, status) {
 
 				var i = 0;
@@ -291,6 +293,10 @@
 		document.getElementById(v).style.display = "none";
 		var lab = "label" + c;
 		document.getElementById(lab).style.display = "none";
+		
+		if(c=="State"){
+			document.getElementById("cancStateVuoto").style.display = "none";
+		}
 	}
 
 	//funzione che crea la select con i valori del filtro selezionato dall'utente
@@ -321,39 +327,41 @@
 									+ x + " ,non puoi sceglierlo come filtro!");
 						}
 						
-						if (fifi == 'Year' || fifi == 'Perpetrator Race'
-								|| fifi == 'Victim Race'
-								|| fifi == 'Relationship' || fifi == 'Weapon'
-								|| fifi == 'State') {
-							$.get("ShowFilter?filtro=" + fifi, function(data,
-									status) {
-
-								var i = 0;
-								var str = "";
-								var d = JSON.parse(data);
-								for (i = 0; i < d.length; i++) {
-									var x = document.getElementById(fifi);
-									var option = document
-											.createElement("option");
-									option.text = d[i].filtro;
-									x.add(option);
-
+						if(document.getElementById(fifi).length==0){
+								if (fifi == 'Year' || fifi == 'Perpetrator Race'
+										|| fifi == 'Victim Race'
+										|| fifi == 'Relationship' || fifi == 'Weapon'
+										|| fifi == 'State') {
+									$.get("ShowFilter?filtro=" + fifi, function(data,
+											status) {
+		
+										var i = 0;
+										var str = "";
+										var d = JSON.parse(data);
+										for (i = 0; i < d.length; i++) {
+											var x = document.getElementById(fifi);
+											var option = document
+													.createElement("option");
+											option.text = d[i].filtro;
+											x.add(option);
+		
+										}
+		
+										if (fifi == 'Year') {
+											for (i = 0; i < d.length; i++) {
+												var x = document
+														.getElementById('YearTo');
+												var option = document
+														.createElement("option");
+												option.text = d[i].filtro;
+												x.add(option);
+		
+											}
+										}
+									
+									});
 								}
-
-								if (fifi == 'Year') {
-									for (i = 0; i < d.length; i++) {
-										var x = document
-												.getElementById('YearTo');
-										var option = document
-												.createElement("option");
-										option.text = d[i].filtro;
-										x.add(option);
-
-									}
-								}
-							
-							});
-						}
+							}
 						}
 					});
 
