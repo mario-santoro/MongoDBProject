@@ -21,8 +21,8 @@ public class Queries {
 	//restituisce un oggetto che utilizzeremo come attributo per gli altri metodi per le query
 	public MongoCollection<Document> connection(){		
 		MongoClient mongoClient = new MongoClient(new ServerAddress("localhost", 27017));
-		MongoDatabase db = mongoClient.getDatabase("Omicidi");
-		MongoCollection<Document> collection = db.getCollection("Omicidi");    	
+		MongoDatabase db = mongoClient.getDatabase("omicidi");
+		MongoCollection<Document> collection = db.getCollection("omicidi");    	
 		 collection.createIndex(Indexes.ascending("State"));
 		 collection.createIndex(Indexes.ascending("Year"));
 		 collection.createIndex(Indexes.ascending("Relationship"));
@@ -55,7 +55,7 @@ public class Queries {
 
 	}
 
-	//metodo che restituisce tutte le citt‡ di uno stato
+	//metodo che restituisce tutte le citt√† di uno stato
 	public ArrayList<String> findCityOfState(MongoCollection<Document> collection, String stato){
 		BasicDBObject searchQuery = new BasicDBObject();
 		searchQuery.put("State",stato);
@@ -92,7 +92,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(""+i,count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per anno, nell'anno: "+i+", nel mese: "+ f.getMounth()+", da anni: "+f.getV().getRangePersonAge().get(0)+",a anni: "+f.getV().getRangePersonAge().get(1)+" di sesso: "+f.getV().getPersonSex()+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per anno, nell'anno: "+i+", nel mese: "+ f.getMounth()+", da anni: "+f.getV().getRangePersonAge().get(0)+",a anni: "+f.getV().getRangePersonAge().get(1)+" di sesso: "+f.getV().getPersonSex()+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
@@ -120,7 +120,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(month[i],count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per mese, nell'anno: "+f.getRangeYears().get(0)+", nel mese: "+ month[i]+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per mese, nell'anno: "+f.getRangeYears().get(0)+", nel mese: "+ month[i]+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
@@ -148,7 +148,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(stati.get(i),count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
@@ -157,7 +157,7 @@ public class Queries {
 		return result;
 	}
 
-	//query con ascissa Citt‡ di uno stato
+	//query con ascissa Citt√† di uno stato
 	public ArrayList<CoppiaXY> findForCity(Filtro f, MongoCollection<Document> collection){ 
 		BasicDBObject searchQuery = controlli(f);
 		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();
@@ -176,7 +176,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(city.get(i),count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nella citt‡: "+ city.get(i)+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nella citt√†: "+ city.get(i)+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
@@ -241,7 +241,7 @@ public class Queries {
 			int count=0;
 			try {
 				while (cursor.hasNext()) {
-					System.out.println(count + " Conto i muort");
+					//System.out.println(count + " Conto i muort");
 					count++;
 					cursor.next();
 				}
@@ -259,7 +259,7 @@ public class Queries {
 	public ArrayList<CoppiaXY> findForPerpetratorAge(Filtro f, MongoCollection<Document> collection ){
 		BasicDBObject searchQuery = controlli(f);
 		ArrayList<CoppiaXY> result= new ArrayList<CoppiaXY>();    
-		int[][] eta= {{0,14},{15,20},{21,25},{26,34},{35,54},{55,64},{65,75},{76,84},{85,100}};
+		int[][] eta= {{4,14},{15,20},{21,25},{26,34},{35,54},{55,64},{65,75},{76,84},{85,100}};
 		for(int i = 0;i<9;i++) {
 			Bson condition = new Document("$gte", ""+eta[i][0]).append("$lte",""+eta[i][1]);
 			searchQuery.put("Perpetrator Age",condition);
@@ -352,7 +352,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(razzeVittime.get(i),count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
@@ -383,7 +383,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(relationship.get(i),count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
@@ -413,7 +413,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(weapons.get(i),count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
@@ -444,7 +444,7 @@ public class Queries {
 				}
 				CoppiaXY c= new CoppiaXY(razzeAssassini.get(i),count);
 				result.add(c);
-				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" Ë: "+count);
+				//System.out.println("Il numero delle vittime per stato, nell'anno: "+f.getRangeYears().get(0)+", nello stato: "+ stati.get(i)+" √®: "+count);
 			} finally {
 				cursor.close();
 			}
