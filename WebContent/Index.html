@@ -23,8 +23,10 @@
 		<div class="row">
 
 			<div class="col-sm-12">
+			<img id="icon" src="img/db2-ICON2.png"></img>
 				<br>
 				<h1>Analisi Omicidi US dal 1980 al 2014</h1>
+				
 				<p>Quesa pagina web permette di analizzare e visualizzare gli
 					omicidi avvenuti in America (solo determinati stati) dal 1980 al
 					2014.</p>
@@ -244,6 +246,9 @@
 		cancella("Victim Age");
 		cancella("Perpetrator Sex");
 		cancella("Perpetrator Age");
+		document.getElementById("chartContainer").innerHTML = '&nbsp;';
+		document.getElementById("chartContainer").innerHTML = '<canvas id="myChart"></canvas>';
+		document.getElementById("userSelected").innerHTML = "";
 		if (x == "City") {
 			document.getElementById("State").style.display = "block";
 			document.getElementById("labelState").style.display = "inline";
@@ -468,6 +473,7 @@
 							if (y < x) {
 								alert("Anno di fine deve essere maggiore o uguale ad anno di inizio");
 							} else {
+								
 								var lab = document.getElementById("ascissa").value;
 								var labeluser = 'Grafico per valori con ascissa '
 										+ lab + ', e i seguenti filtri: ';
@@ -552,8 +558,7 @@
 									AgeVStart = "";
 									AgeVEnd = "";
 								} else {
-									switch (document
-											.getElementById("Victim Age").selectedIndex) {
+									switch (document.getElementById("Victim Age").selectedIndex) {
 									case 0:
 										AgeVStart = "0";
 										AgeVEnd = "14";
@@ -597,71 +602,68 @@
 											+ ']';
 
 								}
-								var AgeAStart, AgeAEnd;
+								
+								var AgeAStart2, AgeAEnd2;
+								
 								if (document.getElementById("Perpetrator Age").style.display == "none") {
-									AgeAStart = "";
-									AgeAEnd = "";
+									AgeAStart2 = "";
+									AgeAEnd2 = "";
 								} else {
-									switch (document
-											.getElementById("Perpetrator Age").selectedIndex) {
+									
+									switch (document.getElementById("Perpetrator Age").selectedIndex) {
 									case 0:
-										AgeAStart = "0";
-										AgeAEnd = "14";
+										AgeAStart2 = "4";
+										AgeAEnd2 = "14";
 										break;
 									case 1:
-										AgeAStart = "15";
-										AgeAEnd = "20";
+										AgeAStart2 = "15";
+										AgeAEnd2 = "20";
 										break;
 									case 2:
-										AgeAStart = "21";
-										AgeAEnd = "25";
+										AgeAStart2 = "21";
+										AgeAEnd2 = "25";
 										break;
 									case 3:
-										AgeAStart = "26";
-										AgeAEnd = "34";
+										AgeAStart2 = "26";
+										AgeAEnd2 = "34";
 										break;
 									case 4:
-										AgeAStart = "35";
-										AgeAEnd = "54";
+										AgeAStart2 = "35";
+										AgeAEnd2 = "54";
 										break;
 									case 5:
-										AgeAStart = "55";
-										AgeAEnd = "64";
+										AgeAStart2 = "55";
+										AgeAEnd2 = "64";
 										break;
 									case 6:
-										AgeAStart = "65";
-										AgeAEnd = "75";
+										AgeAStart2 = "65";
+										AgeAEnd2 = "75";
 										break;
 									case 7:
-										AgeAStart = "76";
-										AgeAEnd = "84";
+										AgeAStart2 = "76";
+										AgeAEnd2 = "84";
 										break;
+										
 									case 8:
-										AgeAStart = "85";
-										AgeAEnd = "100";
+										AgeAStart2 = "85";
+										AgeAEnd2 = "100";
 										break;
 
 									}
-									labeluser += ' [anni assassino da: '
-											+ AgeAStart + ', a: ' + AgeAEnd
-											+ ']';
-								}
 
+									labeluser += ' [anni assassino da: '
+										+ AgeAStart2 + ', a: ' + AgeAEnd2
+										+ ']';
+								}
+																
 								labeluser += ' :';
 								document.getElementById("userSelected").innerHTML = labeluser;
-								var ascissa = document
-										.getElementById("ascissa").value;
-								$.get("ShowGraphic?ascissa=" + ascissa
-										+ "&year=" + year + "&yearTo=" + yearTo
-										+ "&state=" + state + "&month=" + month
-										+ "&relationship=" + rel + "&weapon="
-										+ weapon + "&victimSex=" + sessoV
-										+ "&perpetratorSex=" + sessoA
-										+ "&victimRace=" + razzaV
-										+ "&perpetratorRace=" + razzaA
-										+ "&ageVstart=" + AgeVStart
-										+ "&ageVend=" + AgeVEnd + "&ageAstart="
-										+ AgeAStart + "&ageAend=" + AgeAEnd,
+								var ascissa = document.getElementById("ascissa").value;
+								
+								$.get("ShowGraphic?ascissa=" + ascissa + "&year=" + year + "&yearTo=" + yearTo + "&state=" + state + "&month=" 
+										+ month + "&relationship=" + rel + "&weapon=" + weapon + "&victimSex=" + sessoV + "&perpetratorSex=" 
+										+ sessoA + "&victimRace=" + razzaV	+ "&perpetratorRace=" + razzaA + "&ageVstart=" + AgeVStart + "&ageVend=" 
+										+ AgeVEnd + "&ageAstart=" + AgeAStart2 + "&ageAend=" + AgeAEnd2,
 										function(data, status) {
 											perm(data);
 										});
@@ -677,8 +679,8 @@
 			
 				for (i = 0; i < d.length; i++) {
 					 var r = Math.floor(Math.random() * 255);
-					    var g = Math.floor(Math.random() * 255);
-					    var b = Math.floor(Math.random() * 255);
+					 var g = Math.floor(Math.random() * 255);
+					 var b = Math.floor(Math.random() * 255);
 					    
 					massPopChart.data.datasets[0].data.push(d[i].y);
 				
